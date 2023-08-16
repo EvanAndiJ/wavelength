@@ -1,9 +1,14 @@
 import './App.css';
-import { Outlet } from 'react-router-dom';
-import React from 'react';
+import React, {useState} from 'react';
+import { Outlet, useParams } from 'react-router-dom';
+//@ts-expect-error
+import Menu from './components/Menu.App.tsx';
+
+import { configureAbly } from "@ably-labs/react-hooks";
 
 export default function App() {
-
+  const { roomCode } = useParams()
+  
   return (
     <div className="App">
       <h1>WAVELENGTH</h1>
@@ -11,80 +16,6 @@ export default function App() {
     </div>
   );
 }
-
-//  App;
-
-// const old = (
-//   <div>
-//     <div class="promptArea">
-//       <h1>WAVELENGTH</h1>
-//       <p class='prompt' id='prompt'>Add some players, then press Start!</p>
-//       {/* <!-- ^ prompt is set to none in css --/> */}
-//     </div>
-
-//     <div class='targetArea'>
-//       <div class='tarwindow' onclick="screenTog()">
-//         <div class='targetBox' id='targetBox'>
-//           <div class='pt3'> 
-//             <div class="pt4">4</div>
-//           </div> 
-//         </div>
-//         <div id='screen' class='screen'></div>
-//         <div class='guessLine' id='guessLine'></div>
-//       </div>
-//       <input type="range" id='tarSlider' name='tarSlider' min='1' max='99' onchange="updateGuess()"/>
-//     </div>
-
-//     <div class='totArea'>
-//       <div class='totL' id='totL'></div>
-//       <div class='totR' id='totR'></div>
-//     </div>
-//     <div class="gameArea">
-//       <div class='gameButts'>
-//         <button id='under' onclick="overUnder(id)"><span class="gameButtSpan">&#10096;</span></button>
-//       </div>
-//       <div class="clueArea">
-//         <div class='clue' id='clueField' onclick="newClue()">
-//           <span style="opacity:.25;font-size:.4em;">enter clue here</span>
-//         </div>
-//       </div>
-//       <div class="gameButts">
-//         <button id='over' onclick="overUnder(id)"><span class="gameButtSpan">&#10097;</span></button>
-//       </div>
-//     </div>
-
-//     <div class='playArea'>
-//       <div class='score' id='t1s'>0</div>
-//       <div class="teamBox" id='t1b'>
-//         <div class='lightBox'>
-//           <div class="greenlight" id='t1g'><span class="teamName">Team 1</span></div>
-//           <div class="redlight" id='t1r'><span style='font-size:.5em;'>Second Chance</span></div>
-//         </div>
-//         <div class='players'>
-//           <ul class='team' id='t1'>
-
-//           </ul>
-//         </div>
-//       </div>
-//       <div class="options">
-//         <button onclick="startGame()" id='startButt'>Start</button>
-        
-//         <button onclick="options()">Options</button> 
-//       </div>
-//       <div class="teamBox" id='t2b'>
-//         <div class='lightBox'>
-//           <div class="greenlight" id='t2g'><span class="teamName">Team 2</span></div>
-//           <div class="redlight" id='t2r'><span style='font-size:.5em;'>Second Chance</span></div>
-//         </div>
-//         <div class='players'>
-//           <ul class='team' id='t2'>
-
-//           </ul>
-//         </div>
-//       </div>  
-//       <div class='score' id='t2s'>0</div>
-//     </div>
-
 
 //     <div class="modalBG" id='modalBG'>
 //       <div class="modalArea" id="modalHow">

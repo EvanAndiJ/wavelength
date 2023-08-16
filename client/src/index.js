@@ -6,6 +6,7 @@ import App from './App.tsx';
 
 import Start from './routes/start.tsx';
 import Game from './routes/room.tsx';
+import Dash from './routes/Dash.tsx';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,7 @@ root.render(
         </Route>
       </Route>
       <Route path='temproom' element={<Game/>}/>
+      <Route path='dash' element={<Dash/>}/>
 
       <Route path="*" element={<h1>Oops, nothing here</h1>} />
     </Routes>

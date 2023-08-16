@@ -1,5 +1,39 @@
+:root {
+  --redbg:#e35757;
+  --redtxt: #882323;
+  --greenbg: #4dda7e ;
+  --greentxt: #236a3b;
+
+  --mainBG: #37c7c0;
+  /* --mainBG: #80c6f5; */
+  /* --mainBG: #f5958e; */
+
+  /* --mainBorder: 3px solid #bb635d;
+  --mainBorderColor: #69332f; */
+  /* --mainBorder: 3px solid #5c93bb;
+  --mainBorderColor: #305168; */
+  --mainBorder: 3px solid #2da59f;
+  --mainBorderColor: #185e5a;
+}
+body {
+  color: var(--mainBorderColor);
+  background-color: var(--mainBG);
+}
 .App {
   text-align: center;
+  position: relative;
+}
+#Menu {
+  position: absolute;
+  right: 0;
+  margin: .25em;
+  border: none;
+  font-size: 1.25em;
+  background-color: var(--mainBG);
+  color: var(--mainBorderColor)
+}
+.dropdown-toggle::after {
+  display: none !important; 
 }
 .startMenu {
   width: 80%;
@@ -12,43 +46,266 @@
   width: 10rem;
   margin: auto;
 }
-
-
-
-
-
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+font-family: Impact, sans-serif;
+font-size: 50px;
+margin: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+ul {
+  list-style-type: none;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+li {
+  font-family: sans-serif;
+  color: #124341;
+}
+#pageFrame {
+  height: 89vh;
+  width: 100%;
+  border: none;
+}
+.projReturn {
+  /* border: 1px solid blue; */
+  scale: 5;
+  position: fixed;
+  left: 1em;
+  color: var(--mainBG)
+}
+.navBarBox {
+  position: absolute;
+  color: var(--mainBG);
+}
+.folded {
+  font-size: 1.5em;
+  display: block;
+}
+.navBarList{
+  font-size: 1rem;
+  display: none;
+}
+.folded:hover .navBarList{
+  display: block;
+}
+.navBarBox ul{
+  margin: 0 -.5em;
+  list-style: none;
+  padding: 0;
+}
+.navBarList li {
+  color: var(--mainBG);
+  margin: 0 .25em;
+}
+.navBarList li:hover {
+  background-color: var(--mainBG); 
+  color: var(--mainBorderColor)
+}
+.dropbtn {
+  border: none;
+}
+a {
+  color: var(--mainBorderColor);
+  text-decoration: none;
+}
+.dropdownCon {
+  position: relative;
+  display: inline-block;
+}
+.dropContent {
+  display: none;
+  z-index: 1; 
+}
+.sidebar {
+  display: flex;
+}
+.dropContent a {
+  background-color: var(--mainBG);
+  color: var(--mainBorderColor);
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid gray;
+}
+.dropdownCon:hover .dropContent {display: block;}
+.gameBox {
+  display: flex;
+  flex-direction: column;
+  width: 30em;
+  margin: auto;
+  justify-items: center;
+  overflow: hidden;
+}
+.promptArea {
+  margin: .25em auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: space-around;
+  color: var(--mainBG);
+  text-shadow: 0 0 2px black;
+  text-align: center;
+}
+.prompt {
+  display: none;
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-.App-link {
-  color: #61dafb;
+.modalBG {
+  display: none;
+  position: fixed;
+  margin: auto;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  
+}
+.modalArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15% auto; 
+  background-color:  #37c7c0;
+  padding: 10px;
+  width: 460px;
+  font-family: Trebuchet MS, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  box-shadow: 0 0 10px 5px black;
+}
+.modalArea label {
+  border: 0;
+}
+.totLine {
+  width: 100%;
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 1.65em;
+  font-weight: bold;
+  border: 3px solid #2da59f;
+  margin: 1%;
+  box-shadow: 0 0 10px black;
+}
+.totLine:hover {
+  box-shadow: 0 0 10px green;
+}
+#modalHow {
+  display: none;
+  position: relative;
+  width: 92%;
+  text-align: left;
+}
+#modalHow * {
+  margin: .25em;
+}
+#modalTots {
+  display: none;
+}
+#modalClue {
+  display: none;
+  margin: 7em auto;
+}
+#addPlayer {
+  display: none;
+}
+#removePlayer {
+  display: none;
+}
+#modalWin {
+  display: none;
+}
+#optionsBox {
+  color: var(--mainBorderColor);
+  display:none;
+  position: relative;
+}
+.optButton {
+  font-weight:bold;
+  color: var(--mainBorderColor);
+  min-width: 8.3em;
+  border-radius: 15px;
+  background-color: #37c7c0;
+  border: 3px solid #278884;
+  box-shadow: 1px 1px 3px 0 gray;
+  margin: 3px;
+  width: 12em;
+}
+.closeButt {
+  position: absolute;
+  right: 1em;
+  transform: scale(1.5);
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+.clueLine {
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  margin: 1%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 750px) {
+  .gameBox {
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  .prompt {
+    font-size: .7rem;
+  }
+  .tarwindow {
+    height: 2em;
+  }
+  .totArea {
+    font-size: 1.25em;
+  }
+  .clueArea {
+    min-width: 11em;
+  }
+  .clue {
+    width: 3.25em;
+  }
+  #clueSpan {
+    font-size: .37em;
+  }
+  #newClue {
+    width: 90%;
+  }
+  label.clueLine {
+    font-size: 1.5em;
+  }
+  .lightBox {
+    margin: auto 2px;
+  }
+  .greenlight, .redlight {
+    width: 2em;
+  }
+  .teamName {
+    font-size: .7em;
+  }
+  .players {
+    display: none;
+  }
+  .score {
+    width: 4em;
+    margin: 10px 2px;
+  }
+  .options button {
+    border: 2px solid #278884;
+    min-width: 5em;
+  }
+  .modalArea {
+    width: 17em;
+  }
+  .totLine {
+    font-size: 1em;
+  }
+  #modalHow {
+    width: 89%;
+    font-size: .85em;
   }
 }

@@ -1,0 +1,144 @@
+.playArea {
+    width: 98%;
+    margin: .5rem auto;
+    margin-bottom: 1em;
+    background-color: var(--mainBG);
+    border-top: 0;
+    display: flex;
+    justify-content:space-around;
+  }
+  .score {
+    width: 3.75rem;
+    height: 3.5rem;
+    margin: 10px 5px;
+    background-color: white;
+    border: 3px solid #2da59f;
+    border-radius: 15px;
+    font-size: 2.75em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .joinButton {
+    height: 2em;
+    font-size: .75em;
+  }
+  .joinSpacer {
+    width: 80%;
+    height: 2em;
+    font-size: .75em;
+    border: 1px solid blue;
+  }
+  .teamList {
+    width: 100%;
+    min-height: 8.3em;
+    margin: 10px 5px;
+    padding: .25em .5em;
+    background-color: white;
+    border: 3px solid #2da59f;
+    border-radius: 15px;
+    /* font-size: 2.75em; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+  }
+  #t1Score, #t2Score {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+  #t2Score {
+    flex-direction: row-reverse;
+  }
+  .options {
+    margin: 0 .10em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    /* font-size: 3.753em; */
+    color: #1a706c;
+    text-shadow: 0 0 2px black;
+    padding: 2px;
+  }
+  .options button {
+    /* height: 2.75em; */
+    /* min-width: 8.3em; */
+    font-weight:bold;
+    color: var(--mainBorderColor);
+    border-radius: 15px;
+    background-color: #37c7c0;
+    border: 3px solid #278884;
+    box-shadow: 1px 1px 3px 0 gray;
+  }
+  .teamBox {
+    /* margin-top: .5em; */
+    width: 45%;
+    height: 100%;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+  }
+  #t2b {
+    flex-direction: column;
+  }
+  .players {
+    display: none;
+    width: 70%;
+    height: 90%;
+    margin: auto;
+    background-color: white;
+    border: var(--mainBorder);
+    border-radius: 9px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .92em;
+    position: relative;
+  }
+  .team {
+    position: absolute;
+    top: -.75em;
+    left: -2.3em;
+  }
+  .lightBox {
+    /* height: 6em; */
+    display: flex;
+    justify-content: space-around;
+  }
+  #t1lights {
+    flex-direction: row-reverse;
+  }
+  .greenlight, .redlight {
+    padding: 0 5px;
+    width: 45%;
+    margin: .25em;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: .5;
+    box-shadow: inset 0 0 3px black;
+  }
+  .redlight {
+    color: var(--redtxt);
+    background-color: var(--redbg);
+  }
+  .greenlight {
+    color: var(--greentxt);
+    background-color: var(--greenbg);
+  }
+  .turn {
+    opacity: 1;
+    box-shadow: 0 0 5px rgb(104, 104, 104);
+  }
+  

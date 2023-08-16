@@ -1,5 +1,5 @@
 const controller = require("../controllers/game.controller");
-module.exports = function(app) {
+module.exports = function(app, realtime) {
 
   app.use(function(req, res, next) {
     res.header(
@@ -9,17 +9,24 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/newRoom",
-    controller.newRoom
+  app.post("/api/startGame",
+    controller.startGame
   );
-  app.post("/api/joinRoom",
-    controller.joinRoom
+  app.post("/api/endGame",
+    controller.endGame
   );
-  app.post("/api/closeRoom",
-    controller.closeRoom
+  app.post("/api/getTarget",
+    controller.getTarget
   );
-  app.post('/api/roomUsers',
-    controller.roomUsers
+  app.post("/api/drawRanges",
+    controller.drawRanges
   );
+  app.post('/api/chooseRange',
+    controller.chooseRange
+  );
+  app.get("/authUser", 
+    controller.authUser
+  );
+
   
 };

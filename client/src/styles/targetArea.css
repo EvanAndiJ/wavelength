@@ -1,0 +1,116 @@
+.targetArea {
+    display: flex;
+    width:  98%;
+    margin: auto;
+    /* border: var(--mainBorder); */
+    /* border-radius: 25px 25px 0px 0px; */
+    /* background-color: var(--mainBG); */
+    align-items: center;
+    flex-direction: column;
+  }
+  .targetWindow {
+    display: flex;
+    position: relative;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.856);
+    height: 1.5em;
+    width: 90%;
+    border-radius: 15px;
+    border: var(--mainBorder);
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 1em;
+    overflow: hidden;
+  }
+  .target {
+    display: flex;
+    justify-content: center;
+    height: 110%;
+    width: 25%;
+    position: relative;
+    /* left: 38%; */
+    background-color: rgb(233, 233, 102);
+    color: #beb93f;
+    box-shadow: 0 0 6px rgb(133, 133, 133);
+  }
+  .pt3 {
+    background-color: rgb(252, 185, 62);
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #be863f;
+    box-shadow: 0 0 6px black;
+  }
+  .pt4 {
+    background-color: rgb(77, 77, 161);
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b5bcf0;
+    box-shadow: 0 0 6px black;
+  }
+  .screen {
+    text-align: center;
+    position: absolute;
+    left: -1%;
+    margin: auto;
+    height: 100%;
+    /* width: 0%; */
+    background-color: var(--mainBG);
+    border-radius: 15px;
+    transition: width 0.5s ease-in;
+  }
+  .guessLine {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    height: 3em;
+    width: 3px;
+    background-color: rgb(211, 84, 84);
+    box-shadow: 0 0 3px rgb(218, 90, 90);
+    transition: left 0.5s ease-in;
+  }
+  #targetSlider {
+    width: 92%;
+    /* margin: auto; */
+    margin-top: 10px;
+    transition: left 0.5s ease-in;
+  }
+
+  .rangeArea {
+    width: 100%;
+    min-height: 2em;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    border-top: 3px solid #2da59f;
+    border-bottom: 3px solid #2da59f;
+    font-family: Trebuchet MS, sans-serif;
+    font-size: 1.75em;
+    font-weight: bold;
+    text-align: center;
+  }
+  .rLeft {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e35757;
+    color: #882323;
+    padding: 2%;
+  }
+  .rRight {
+    width: 50%;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4dda7e ;
+    color: #236a3b;
+  }

@@ -1,10 +1,17 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import http, {NewRoom, newGameChannel} from '../scripts/http'
+import useUser from "../hooks/useUser"
+import useTeams from "../hooks/useTeams"
+import useGame from "../hooks/useGame"
 
 export default function Start() {
     const nav = useNavigate()
-    const [roomCode, setRoomCode] = useState('')
-    const [name, setName] = useState('')
+    const {user, setUser} = useUser()
+    const {teams, setTeams} = useTeams()
+    const {game, setGame} = useGame()
+    const [roomCode, setRoomCode] = useState(user ? user.room : '')
+    const [name, setName] = useState(user ? user.name : '')
     const [err, setErr] = useState('')
 
     const onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,36 +25,33 @@ export default function Start() {
         }
     }
     async function newRoom () {
-        await fetch('/api/newRoom', {
-            method: 'POST',
-            headers: {
-              'content-type':'application/json',
-            },
-            body: JSON.stringify({name})
-          })
-        .then(res => res.json())
-        .then(res => {
-            nav(`/room/${res.roomCode}`)
-        })
+        // console.log('newRoom')
+        const res = await NewRoom(name)
+        newGameChannel(res.game.code)
+        setUser(res.creator)
+        setTeams(res.game.teams)
+        setGame(res.game)
+        nav(`/room/${res.game.code}`)
     }
     async function joinRoom() {
-        await fetch('/api/joinRoom', {
-            method: 'POST',
-            headers: {
-              'content-type':'application/json',
-            },
-            body: JSON.stringify({name,roomCode})
-          })
-        .then(res => res.json())
-        .then(res => {
-            res.noRoom ? setErr(`Invalid Room Code!`)
-            : nav(`/room/${res.roomCode}`)
-        })
+        // console.log('joinRoom')
+        const res = user ? await http.joinRoom(name, roomCode, user._id)
+                : await http.joinRoom(name, roomCode)
+        if (res.err) {
+            setErr(res.err)
+        } else {
+            // console.log(res)
+            setUser(res.user)
+            setTeams(res.game.teams)
+            setGame(res.game)
+            nav(`/room/${res.game.code}`)
+        }
     }
     
     return (
         <div className='startMenu'>
-            <button onClick={()=>console.log(name, roomCode)}>start page</button>
+            {/* <button onClick={()=>console.log(user)}>user</button> */}
+            {/* <button onClick={()=>console.log(name, roomCode)}>start page</button> */}
             <label>Room Code: <span>{err}</span></label>
             <input name='room' type='text' 
                 placeholder="Enter 4-Digit Code"

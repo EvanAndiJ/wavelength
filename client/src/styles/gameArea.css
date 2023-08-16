@@ -1,0 +1,228 @@
+.gameArea {
+    margin: auto;
+    width: 98%;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--mainBG);
+}
+.gameArea button {
+  height: 2em;
+  margin: .5rem;
+  /* font-size: auto; */
+  width: 48%;
+  border-radius: 25px; 
+  box-shadow: 2px 2px 4px 0 gray;
+}
+.gameButtons {
+  display: flex;
+  justify-content: center;
+}
+.gameButtons button{
+  opacity: .5;
+}
+.gameButtons button:hover:enabled {
+  opacity: 1;
+}
+#over {
+  background-color: var(--greenbg);
+  color: var(--greentxt);
+  border: 2px solid var(--greentxt);
+}
+#over.glow {
+  opacity: 1;
+  box-shadow: 0 0 15px 1px #42bd6d,
+  inset 0 0 15px 1px rgba(235, 235, 235, 0.5);
+}
+#under {
+  background-color: var(--redbg);
+  color: var(--redtxt);
+  border: 2px solid var(--redtxt);
+}
+#under.glow{
+  opacity: 1;
+  box-shadow: 0 0 15px 4px var(--redbg),
+  inset 0 0 15px 1px rgba(235, 235, 235, 0.5);
+}
+.clueArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#clueSpan {
+  font-size: .55em;
+}
+.clue {
+  width: 80%;
+  min-height: 4rem;
+  background-color: white;
+  border: 3px solid #2da59f;
+  border-radius: 15px;
+  font-size: 3em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  resize: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+#clueInput {
+  outline: none;
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+::placeholder {
+  opacity: .35;
+}
+.psychic {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+  
+.modalBG {
+    display: none;
+    position: fixed;
+    margin: auto;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    
+  }
+  .modalArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15% auto; 
+    background-color:  #37c7c0;
+    padding: 10px;
+    width: 460px;
+    font-family: Trebuchet MS, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid #2da59f;
+    box-shadow: 0 0 10px 5px black;
+  }
+  .modalArea label {
+    border: 0;
+  }
+  .totLine {
+    width: 100%;
+    display: flex; 
+    font-family: Trebuchet MS, sans-serif;
+    font-size: 1.65em;
+    font-weight: bold;
+    border: 3px solid #2da59f;
+    margin: 1%;
+    box-shadow: 0 0 10px black;
+  }
+  .totLine:hover {
+    box-shadow: 0 0 10px green;
+  }
+  #modalHow {
+    display: none;
+    position: relative;
+    width: 92%;
+    text-align: left;
+  }
+  #modalHow * {
+    margin: .25em;
+  }
+  #modalTots {
+    display: none;
+  }
+  #modalClue {
+    display: none;
+    margin: 7em auto;
+  }
+  #addPlayer {
+    display: none;
+  }
+  #removePlayer {
+    display: none;
+  }
+  #modalWin {
+    display: none;
+  }
+  #optionsBox {
+    color: var(--mainBorderColor);
+    display:none;
+    position: relative;
+  }
+  .optButton {
+    font-weight:bold;
+    color: var(--mainBorderColor);
+    min-width: 8.3em;
+    border-radius: 15px;
+    background-color: #37c7c0;
+    border: 3px solid #278884;
+    box-shadow: 1px 1px 3px 0 gray;
+    margin: 3px;
+    width: 12em;
+  }
+  .closeButt {
+    position: absolute;
+    right: 1em;
+    transform: scale(1.5);
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+  }
+  .clueLine {
+    display: flex; 
+    font-family: Trebuchet MS, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid #2da59f;
+    margin: 1%;
+  }
+  
+  @media only screen and (max-width: 750px) {
+    /* .clueArea {
+      min-width: 11em;
+    } */
+    /* .clue {
+      width: 3.25em;
+    } */
+    #clueSpan {
+      font-size: .37em;
+    }
+    #newClue {
+      width: 90%;
+    }
+    label.clueLine {
+      font-size: 1.5em;
+    }
+    /*.gameArea button {
+       min-width: 3.5em;
+      max-width: 3.5em;
+      height: 6em; 
+    }*/
+    .lightBox {
+      margin: auto 2px;
+    }
+    /* .greenlight, .redlight {
+      width: 2em;
+    } */
+    .teamName {
+      font-size: .7em;
+    }
+    .players {
+      display: none;
+    }
+    /* .score {
+      width: 4em;
+      margin: 10px 2px;
+    } */
+    .options button {
+      border: 2px solid #278884;
+      min-width: 5em;
+    }
+  }
+  

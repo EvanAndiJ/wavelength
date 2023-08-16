@@ -1,31 +1,13 @@
-const config = require('../config/db.config')
-const Sequelize = require('sequelize')
-const sequelize = new Sequelize(
-    config.db,
-    config.user,
-    config.password,
-    {
-        host: config.host,
-        dialect: config.dialect,
-        pool: {
-        max: config.pool.max,
-        min: config.pool.min,
-        acquire: config.pool.acquire,
-        idle: config.pool.idle
-        },
-        logging: false
-    }
-);
+const Mongoose = require('mongoose')
+const mongoose =  Mongoose.connect(
+    "mongodb+srv://asleepies:Y5gb4JVCi4K6VXnT@asleepies.xujinrx.mongodb.net/?retryWrites=true&w=majority")
 
 const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.Mongoose = Mongoose
+db.mongoose = mongoose
 
-db.room = require("./room.model.js")(sequelize, Sequelize);
-db.user = require("./user.model.js")(sequelize, Sequelize);
-
-db.room.hasMany(db.user, {sourceKey:'code'})
-db.user.belongsTo(db.room)
-
+db.user = require('./user.model.js')
+// db.room = require('./room.model.js')
+db.game = require('./game.model.js')
 
 module.exports = db;

@@ -1,0 +1,587 @@
+:root {
+  --redbg:#e35757;
+  --redtxt: #882323;
+  --greenbg: #4dda7e ;
+  --greentxt: #236a3b;
+  --mainBG: #37c7c0;
+  --mainBorder: 3px solid #2da59f;
+  --mainBorderColor: #185e5a;
+}
+body {
+  background-color:var(--mainBG);
+}
+h1 {
+font-family: Impact, sans-serif;
+font-size: 50px;
+margin: 0;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  font-family: sans-serif;
+  color: #124341;
+}
+#pageFrame {
+  height: 89vh;
+  width: 100%;
+  border: none;
+}
+.projReturn {
+  /* border: 1px solid blue; */
+  scale: 5;
+  position: fixed;
+  left: 1em;
+  color: var(--mainBG)
+}
+.navBarBox {
+  position: absolute;
+  color: var(--mainBG);
+}
+.folded {
+  font-size: 1.5em;
+  display: block;
+}
+.navBarList{
+  font-size: 1rem;
+  display: none;
+}
+.folded:hover .navBarList{
+  display: block;
+}
+.navBarBox ul{
+  margin: 0 -.5em;
+  list-style: none;
+  padding: 0;
+}
+.navBarList li {
+  color: var(--mainBG);
+  margin: 0 .25em;
+}
+.navBarList li:hover {
+  background-color: var(--mainBG); 
+  color: var(--mainBorderColor)
+}
+.dropbtn {
+  border: none;
+}
+a {
+  color: var(--mainBorderColor);
+  text-decoration: none;
+}
+.dropdownCon {
+  position: relative;
+  display: inline-block;
+}
+.dropContent {
+  display: none;
+  z-index: 1; 
+}
+.sidebar {
+  display: flex;
+}
+.dropContent a {
+  background-color: var(--mainBG);
+  color: var(--mainBorderColor);
+  padding: 2px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid gray;
+}
+.dropdownCon:hover .dropContent {display: block;}
+.gameBox {
+  display: flex;
+  flex-direction: column;
+  width: 30em;
+  margin: auto;
+  justify-items: center;
+  overflow: hidden;
+}
+.promptArea {
+  margin: .25em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-around;
+  color: var(--mainBG);
+  text-shadow: 0 0 2px black;
+  text-align: center;
+}
+.prompt {
+  display: none;
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.targetArea {
+  display: flex;
+  width:  98%;
+  margin: auto;
+  border: var(--mainBorder);
+  border-radius: 25px 25px 0px 0px;
+  background-color: var(--mainBG);
+  align-items: center;
+  flex-direction: column;
+}
+.tarbutts {
+  height: 40px;
+  width: 95%;  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.tarbutts button {
+  height: 65%;
+  border-color: #2da59f;
+  border-radius: 10px;
+}
+.tarwindow {
+  display: flex;
+  position: relative;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.856);
+  height: 1.5em;
+  width: 90%;
+  border-radius: 15px;
+  border: var(--mainBorder);
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 1em;
+  overflow: hidden;
+}
+.targetBox {
+  display: flex;
+  justify-content: center;
+  height: 110%;
+  width: 25%;
+  position: relative;
+  left: 38%;
+  background-color: rgb(233, 233, 102);
+  color: #beb93f;
+  box-shadow: 0 0 6px rgb(133, 133, 133);
+}
+.pt3 {
+  background-color: rgb(252, 185, 62);
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #be863f;
+  box-shadow: 0 0 6px black;
+}
+.pt4 {
+  background-color: rgb(77, 77, 161);
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b5bcf0;
+  box-shadow: 0 0 6px black;
+}
+.screen {
+  text-align: center;
+  position: absolute;
+  left: -1%;
+  margin: auto;
+  height: 100%;
+  width: 0%;
+  background-color: var(--mainBG);
+  border-radius: 15px;
+  transition: width 0.5s ease-in;
+}
+.guessLine {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  height: 3em;
+  width: 3px;
+  background-color: rgb(211, 84, 84);
+  box-shadow: 0 0 3px rgb(218, 90, 90);
+  transition: left 0.5s ease-in;
+}
+#tarSlider {
+  width: 92%;
+  /* margin: auto; */
+  margin-top: 10px;
+  transition: value 0.5s ease-in;
+}
+.totArea {
+  width: 98%;
+  min-height: 35px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  border-right: 3px solid #2da59f;
+  border-left: 3px solid #2da59f;
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 1.75em;
+  font-weight: bold;
+  text-align: center;
+}
+.totL {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e35757;
+  color: #882323;
+  padding: 2%;
+}
+.totR {
+  width: 50%;
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4dda7e ;
+  color: #236a3b;
+}
+.gameArea {
+  margin: auto;
+  display: flex;
+  width: 98%;
+  height: 6.25em;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mainBG);
+  border: var(--mainBorder);
+}
+.gameButts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.gameButtSpan {
+  font-size: 4em;
+}
+#over {
+  background-color: var(--greenbg);
+  color: var(--greentxt);
+  border: 2px solid var(--greentxt);
+}
+#under {
+  background-color: var(--redbg);
+  color: var(--redtxt);
+  border: 2px solid var(--redtxt);
+}
+.gameArea button {
+  margin: 1px;
+  min-width: 5rem;
+  font-size: auto;
+  border-radius: 25px;
+  box-shadow: 2px 2px 4px 0 gray;
+}
+.clueArea {
+  min-width: 17rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#clueSpan {
+  font-size: .55em;
+}
+.psychic {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+.clue {
+  width: 15rem;
+  min-height: 4rem;
+  background-color: white;
+  border: 3px solid #2da59f;
+  border-radius: 15px;
+  font-size: 3em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  resize: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.playArea {
+  width: 98%;
+  height: 5.5em;
+  margin: auto;
+  margin-bottom: 1em;
+  background-color: var(--mainBG);
+  border: var(--mainBorder);
+  border-radius: 0 0 25px 25px;
+  border-top: 0;
+  display: flex;
+  justify-content:space-between;
+}
+.score {
+  width: 3.75rem;
+  height: 3.5rem;
+  margin: 10px 5px;
+  background-color: white;
+  border: 3px solid #2da59f;
+  border-radius: 15px;
+  font-size: 2.75em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#t1s {
+  margin-right: 2px;
+}
+#t2s {
+  margin-left: 2px;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 3.753em;
+  color: #1a706c;
+  text-shadow: 0 0 2px black;
+  padding: 2px;
+}
+.options button {
+  height: 2.75em;
+  font-weight:bold;
+  color: var(--mainBorderColor);
+  min-width: 8.3em;
+  border-radius: 15px;
+  background-color: #37c7c0;
+  border: 3px solid #278884;
+  box-shadow: 1px 1px 3px 0 gray;
+}
+.teamBox {
+  /* border: 1px solid green; */
+  width: 6.75rem;
+  height: 100%;
+  display: flex;
+  justify-content: center  ;
+  align-items: center;
+}
+#t2b {
+  flex-direction: row-reverse;
+}
+.players {
+  display: none;
+  width: 70%;
+  height: 90%;
+  margin: auto;
+  background-color: white;
+  border: var(--mainBorder);
+  border-radius: 9px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .92em;
+  position: relative;
+}
+.team {
+  position: absolute;
+  top: -.75em;
+  left: -2.3em;
+}
+.greenlight, .redlight {
+  padding: 0 5px;
+  width: 4.25em;
+  height: 35%;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .5;
+  box-shadow: inset 0 0 3px black;
+}
+.redlight {
+  color: var(--redtxt);
+  background-color: var(--redbg);
+  /* background-color: rgb(131, 69, 69); */
+}
+.greenlight {
+  color: var(--greentxt);
+  background-color: var(--greenbg);
+  /* background-color: rgb(77, 129, 93); */
+}
+.turn {
+  opacity: 1;
+  box-shadow: 0 0 5px rgb(104, 104, 104);
+  /* box-shadow: inset 0 0 3px rgb(104, 104, 104); */
+}
+.lightBox {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* border: var(--mainBorder); */
+}
+.modalBG {
+  display: none;
+  position: fixed;
+  margin: auto;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  
+}
+.modalArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15% auto; 
+  background-color:  #37c7c0;
+  padding: 10px;
+  width: 460px;
+  font-family: Trebuchet MS, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  box-shadow: 0 0 10px 5px black;
+}
+.modalArea label {
+  border: 0;
+}
+.totLine {
+  width: 100%;
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 1.65em;
+  font-weight: bold;
+  border: 3px solid #2da59f;
+  margin: 1%;
+  box-shadow: 0 0 10px black;
+}
+.totLine:hover {
+  box-shadow: 0 0 10px green;
+}
+#modalHow {
+  display: none;
+  position: relative;
+  width: 92%;
+  text-align: left;
+}
+#modalHow * {
+  margin: .25em;
+}
+#modalTots {
+  display: none;
+}
+#modalClue {
+  display: none;
+  margin: 7em auto;
+}
+#addPlayer {
+  display: none;
+}
+#removePlayer {
+  display: none;
+}
+#modalWin {
+  display: none;
+}
+#optionsBox {
+  color: var(--mainBorderColor);
+  display:none;
+  position: relative;
+}
+.optButton {
+  font-weight:bold;
+  color: var(--mainBorderColor);
+  min-width: 8.3em;
+  border-radius: 15px;
+  background-color: #37c7c0;
+  border: 3px solid #278884;
+  box-shadow: 1px 1px 3px 0 gray;
+  margin: 3px;
+  width: 12em;
+}
+.closeButt {
+  position: absolute;
+  right: 1em;
+  transform: scale(1.5);
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+.clueLine {
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  margin: 1%;
+}
+
+@media only screen and (max-width: 750px) {
+  .gameBox {
+    width: 100%;
+  }
+  .prompt {
+    font-size: .7rem;
+  }
+  .tarwindow {
+    height: 2em;
+  }
+  .totArea {
+    font-size: 1.25em;
+  }
+  .clueArea {
+    min-width: 11em;
+  }
+  .clue {
+    width: 3.25em;
+  }
+  #clueSpan {
+    font-size: .37em;
+  }
+  #newClue {
+    width: 90%;
+  }
+  label.clueLine {
+    font-size: 1.5em;
+  }
+  .gameArea button {
+    min-width: 3.5em;
+    max-width: 3.5em;
+    height: 6em;
+  }
+  .lightBox {
+    margin: auto 2px;
+  }
+  .greenlight, .redlight {
+    width: 2em;
+  }
+  .teamName {
+    font-size: .7em;
+  }
+  .players {
+    display: none;
+  }
+  .score {
+    width: 4em;
+    margin: 10px 2px;
+  }
+  .options button {
+    border: 2px solid #278884;
+    min-width: 5em;
+  }
+  .modalArea {
+    width: 17em;
+  }
+  .totLine {
+    font-size: 1em;
+  }
+  #modalHow {
+    width: 89%;
+    font-size: .85em;
+  }
+}

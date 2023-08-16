@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wavelength</title>
+<link rel="stylesheet" href="../styles/wave.css"/>
+<script defer src="../scripts/wave.js" charset="utf-8"></script>
+<!-- <script src="https://kit.fontawesome.com/149dc9b89d.js" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+  <div class="gameBox">
+
+    <div class="promptArea">
+      <h1>WAVELENGTH</h1>
+      <p class='prompt' id='prompt'>Add some players, then press Start!</p>
+      <!-- ^ prompt is set to none in css -->
+    </div>
+
+    <div class='targetArea'>
+      <div class='tarwindow' onclick="screenTog()">
+        <div class='targetBox' id='targetBox'>
+          <div class='pt3'> 
+            <div class="pt4">4</div>
+          </div> 
+        </div>
+        <div id='screen' class='screen'></div>
+        <div class='guessLine' id='guessLine'></div>
+      </div>
+      <input type="range" id='tarSlider' name='tarSlider' min='1' max='99' onchange="updateGuess()">
+    </div>
+
+    <div class='totArea'>
+      <div class='totL' id='totL'></div>
+      <div class='totR' id='totR'></div>
+    </div>
+    <div class="gameArea">
+      <div class='gameButts'>
+        <button id='under' onclick="overUnder(id)"><span class="gameButtSpan">&#10096;</span></button>
+      </div>
+      <div class="clueArea">
+        <div class='clue' id='clueField' onclick="newClue()">
+          <span style="opacity:.25;font-size:.4em;">enter clue here</span>
+        </div>
+      </div>
+      <div class="gameButts">
+        <button id='over' onclick="overUnder(id)"><span class="gameButtSpan">&#10097;</span></button>
+      </div>
+    </div>
+
+    <div class='playArea'>
+      <div class='score' id='t1s'>0</div>
+      <div class="teamBox" id='t1b'>
+        <div class='lightBox'>
+          <div class="greenlight" id='t1g'><span class="teamName">Team 1</span></div>
+          <div class="redlight" id='t1r'><span style='font-size:.5em;'>Second Chance</span></div>
+        </div>
+        <div class='players'>
+          <ul class='team' id='t1'>
+
+          </ul>
+        </div>
+      </div>
+      <div class="options">
+        <button onclick="startGame()" id='startButt'>Start</button>
+        
+        <button onclick="options()">Options</button> 
+      </div>
+      <div class="teamBox" id='t2b'>
+        <div class='lightBox'>
+          <div class="greenlight" id='t2g'><span class="teamName">Team 2</span></div>
+          <div class="redlight" id='t2r'><span style='font-size:.5em;'>Second Chance</span></div>
+        </div>
+        <div class='players'>
+          <ul class='team' id='t2'>
+
+          </ul>
+        </div>
+      </div>  
+      <div class='score' id='t2s'>0</div>
+    </div>
+
+
+    <div class="modalBG" id='modalBG'>
+      <div class="modalArea" id="modalHow">
+        <h3>How To Play:</h3>
+        <p>- Each turn one team will pick a Psychic. The psychic draws a card and looks at the random target area. </p>
+        <p>- They will give a one word clue about the location of the target area in relation to the card. </p>
+        <p>- The rest of the team will move the slider to where they think it is and click guess. </p>
+        <p>- After setting their guess, the other team will have a chance to guess if the target is to the left or right of your team's guess. </p>
+        <p>- The target is then revealed and points are awarded. First to 10 wins. </p>
+        <p>- Each card can be thought of as a specturm. If the target is all the way to the right, you can safely give a clue word that only describes the green promp. </p> 
+        <p>- If, for whatever reason, you need to start a turn over, click "Oops, redraw" to reset the turn and the psychic will draw a new promp </p> 
+        <button onclick="howClose()" class='closeButt'>&#9747;</button>
+      </div>
+
+      <div class="modalArea" id='modalTots'>
+        Choose One
+        <div class="totLine" id="opt0" onclick="pickTot(this.id)">
+          <div class='totL' id='opt0L'>hot</div>
+          <div class='totR' id='opt0R'>cold</div>
+        </div>
+        <div class="totLine" id="opt1" onclick="pickTot(this.id)">
+          <div class='totL' id='opt1L'>big</div>
+          <div class='totR' id='opt1R'>small</div>
+        </div>
+        <div class="totLine" id="opt2" onclick="pickTot(this.id)">
+          <div class='totL' id='opt2L'>bird</div>
+          <div class='totR' id='opt2R'>lizard</div>
+        </div>
+      </div>
+      
+      <div class="modalArea" id='modalClue'>
+        <label class='clueLine' for="clueField">Enter a one word clue about the target's position:</label>
+        <input class='clueLine' type="text" id="newClue" name="clueField" maxlength="12">
+        <button class='clueLine' onclick="enterClue()">Submit</button>
+      </div>
+
+      <div class="modalArea" id='addPlayer'>
+        Enter player names to add
+        <input type="text" id='newPlayer'>
+        <button onclick="addRemovePlayer()">Submit</button>
+      </div>
+
+      <div class="modalArea" id='removePlayer'>
+        Enter player names to remove
+        <input type="text" id='exPlayer'>
+        <button onclick="addRemovePlayer(1)">Submit</button>
+      </div>
+
+      <div class="modalArea" id='optionsBox'>
+        <h2 id='optionsHeader'>Options:</h2>
+        <!-- <button class="optButton"onclick="newPlayerWindow()">Add Players</button>
+        <button class="optButton"onclick="removePlayerWindow()">Remove Players</button>
+        <button class="optButton"onclick="makeTeams()">Randomize teams</button> -->
+        <button class="optButton" onclick="howTo()">How To</button> 
+        <button class="optButton" onclick="oopsRedrawd()">Oops, redraw</button>
+        <button class="optButton" onclick="reset()">Reset</button>
+        <button class="closeButt" onclick="optionsClose()" style="color:#185e5c">&#9747;</button>
+      </div>
+
+      <div class="modalArea" id='modalWin'>
+        <span id='winner'></span>
+        <button onclick="reset(1)">Hell Yeah!</button>
+      </div>
+
+    </div>
+  
+  </div>
+  </div>
+  
+
+</body>
+
+</html>
