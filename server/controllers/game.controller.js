@@ -63,22 +63,6 @@ exports.drawRangesReq = async (req, res) => {
     pool.push(r)
   }
   return res.status(200).send({ ranges: pool })
-  // if (game.round == 1 || game.round == 6) {
-    //   let pot = cards.filter(card => !game.discard.includes(card));
-    //   for (var i = 1; i < 4; i++) { 
-    //     if (game.discard.length > 250) {
-    //       game.discard = [];
-    //     };
-    //     n = Math.floor(Math.random() * pot.length);
-    //     game.draw.push(pot.splice(n,1)[0])
-    //     let left = document.getElementById('opt'+ (i-1) + 'L');
-    //     let right = document.getElementById('opt'+ (i-1) + 'R');
-    //     left.innerHTML = game.draw[i-1][0].toUpperCase();
-    //     right.innerHTML = game.draw[i-1][1].toUpperCase();
-    //   }
-    //   document.getElementById('modalBG').style.display = 'block';
-    //   document.getElementById('modalTots').style.display = 'flex';
-    // }
     
 }
 exports.chooseRangeReq = async (req, res) => {
@@ -111,12 +95,12 @@ exports.startGame = async (roomCode) => {
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
 
-  // if (totalPlayers < 4) {
-  //   return {err: "Need More Players"}
-  // } else 
-  // if (game.teams[0].length) {
-  //   return {err: 'Some players don't have a team'}
-  // } else {
+  if (totalPlayers < 4) {
+    return {err: "Need More Players"}
+  } else 
+  if (game.teams[0].length) {
+    return {err: `Some players don't have a team`}
+  } else {
     console.log('gamestart')
     game.playing = true;
     game.round = 1;
@@ -126,7 +110,6 @@ exports.startGame = async (roomCode) => {
     const newPsychs = {check: false, 1: null, 2: null};
     if (!game.psych[0]) {
       const i = Math.floor(Math.random()*game.teams[1].length)
-      // const newPsych = game.teams[1].splice(i, 1)[0]
       const newPsych = game.teams[1][i]
       const user = await User.findOne({room: roomCode, name: newPsych})
       if (user) {
@@ -139,7 +122,6 @@ exports.startGame = async (roomCode) => {
     };
     if (!game.psych[1]) {
       let i = Math.floor(Math.random()*game.teams[2].length)
-      // let newPsych = game.teams[2].splice(i, 1)[0]
       let newPsych = game.teams[2][i]
       const user = await User.findOne({room: roomCode, name: newPsych})
       if (user) {
@@ -150,9 +132,14 @@ exports.startGame = async (roomCode) => {
         game.psych[1] = newPsych
       }
     };
-    await game.save();
-    return { game, psychs: newPsychs}
-  // }
+    try {
+      await game.save();
+      return { game, psychs: newPsychs}
+    } catch (err) {
+      console.log(err)
+      
+    }
+  }
 }
 exports.endGame = async (roomCode) => {
   const game = await Game.findOne({ code: roomCode })
@@ -160,15 +147,14 @@ exports.endGame = async (roomCode) => {
   game.playing = false
   game.round = 0
   game.screen = false
-  await game.save()
-  return { game }
+  try {
+    await game.save();
+    return { game}
+  } catch (err) {
+    console.log(err)
+  }
 }
 exports.nextTurn = async (roomCode) => {
-  // const room = await Room.findOne({code: roomCode})
-  // if ( !room )  { return { err:'Room Not Found' } }``
-  // room.game.turn++
-  // room.save()
-  // return {game: room.game}
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
   game.turn++
@@ -179,11 +165,6 @@ exports.nextTurn = async (roomCode) => {
 }
 
 exports.getTarget = async (roomCode) => {
-  // const room = await Room.findOne({code: roomCode})
-  // if ( !room )  { return { err:'Room Not Found' } }
-  // room.game.target = Math.floor(Math.random() * 100);
-  // room.save()
-  // return { game: room.game } 
 
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
@@ -194,12 +175,6 @@ exports.getTarget = async (roomCode) => {
 
 }
 exports.toggleScreen = async (roomCode) => {
-  // const room = await Room.findOne({code: roomCode})
-  // if ( !room )  { return { err:'Room Not Found' } }
-  // const currentPos = room.game.screen
-  // room.game.screen = !currentPos
-  // room.save()
-  // return { game: room.game }
 
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
@@ -211,8 +186,6 @@ exports.toggleScreen = async (roomCode) => {
 }
 
 exports.drawRanges = async (roomCode) => {
-  // const room = await Room.findOne({ code: roomCode })
-  // if ( !room )  { return { err:'Room Not Found' } }
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
 
@@ -221,7 +194,6 @@ exports.drawRanges = async (roomCode) => {
     let range;
     let i = Math.floor(Math.random() * deck.ranges.length)
     let selected = [deck.ranges[i], i]
-    // if (room.game.discard.includes(i) || drawn.includes(i)) {
     if (game.discard.includes(i) || drawn.includes(i)) {
       range = getRange() 
     } else {
