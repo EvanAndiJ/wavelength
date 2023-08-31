@@ -8,10 +8,12 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
   const game = useContext(GameContext)
   const user = useContext(UserContext)
 
-  const showPsychButton = ( game.playing && game.phase === 1 && game.turn === user.team && user.psych )
-  const showPlayerButton = ( game.playing && game.phase === 2 && game.turn === user.team && !user.psych )
-  const isSecondGuess = ( game.playing && game.phase === 3 && game.turn !== user.team )
-  // const sgDisabled = ( !game.playing || (game.phase !== 3 && game.turn !== user.team) )
+  // const showPsychButton = ( game.playing && game.phase === 1 && game.turn === user.team && user.psych )
+  // const showPlayerButton = ( game.playing && game.phase === 2 && game.turn === user.team && !user.psych )
+  // const isSecondGuess = ( game.playing && game.phase === 3 && game.turn !== user.team )
+  const showPsychButton = ( game.playing && game.phase === 1 )
+  const showPlayerButton = ( game.playing && game.phase === 2  )
+  const isSecondGuess = ( game.playing && game.phase === 3 )
 
   const [clueInput, setClueInput] = useState<string>(game.clue)
   const inputClue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,16 +33,36 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
   return (<>
     <div className="gameArea">
 
-      <div className='gameButtons'>
+      <div className='gameButtonsDiv'>
         <button name='l' id='under' disabled={!isSecondGuess}
-          onClick={overUnder} className={game.secondGuess < 1 ? 'glow' : ''}> 
-          &#10096; More Left </button>
+          onClick={overUnder} className={game.secondGuess < 1 ? 'gameButtons secondGuess glow' : 'gameButtons secondGuess'}> 
+          &#10096; Left </button>
           
-        <div style={{fontSize: '.7em'}}> Second Guess </div>
+        {/* <div style={{fontSize: '.7em'}}> Second Guess </div> */}
+        {!game.playing &&
+          <button onClick={gameToggle} className="gameButtons mainButton"
+          disabled={user.name === game.host ? false : true}> 
+            START
+          </button>
+        }
+
+        {showPsychButton && <>
+          {isDraw ? 
+            <button onClick={onDraw} className="gameButtons mainButton" disabled={(!user.psych || game.turn != user.team)}>
+              Draw</button>
+          : <button onClick={onSubmitClue} className="gameButtons mainButton"  disabled={(!user.psych || game.turn != user.team)}>
+              Set Clue</button>}
+        </>}
+
+        {showPlayerButton && 
+        <button onClick={submitGuess} className="gameButtons mainButton" disabled={(user.psych || game.turn != user.team)}>Set Guess</button>}
+        {isSecondGuess && 
+        <button onClick={submitSecondGuess} className="gameButtons mainButton" disabled={game.turn === user.team}>Second Guess</button>}
+        
 
         <button name='r' id='over' disabled={!isSecondGuess}
-          onClick={overUnder} className={game.secondGuess > 1 ? 'glow' : ''}>
-          More Right &#10097; </button>
+          onClick={overUnder} className={game.secondGuess > 1 ? 'gameButtons secondGuess glow' : 'gameButtons secondGuess'}>
+          Right &#10097; </button>
       </div>
 
       <div className="clueArea">
@@ -52,25 +74,6 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
         }
         </div>
       </div>
-
-      {!game.playing ? 
-        <button onClick={gameToggle} 
-        disabled={user.name === game.host ? false : true}> 
-          {game.playing ? 'End' : 'Start'}
-        </button>
-        : null
-      }
-
-      {showPsychButton && <>
-        {isDraw ? <button onClick={onDraw}>Draw</button>
-        : <button onClick={onSubmitClue}>Set Clue</button>}
-       </>}
-
-      {showPlayerButton && 
-      <button onClick={submitGuess}>Set Guess</button>}
-      {isSecondGuess && 
-      <button onClick={submitSecondGuess}>Second Guess</button>}
-
 
     </div>
     </>

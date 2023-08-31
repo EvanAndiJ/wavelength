@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, '../client/build')))
 require('./routes/room.routes')(app);
 require('./routes/game.routes')(app);
 require('./controllers/ably.controller')(app);
-// require('./controllers/ably.controller')(app, realtime);
+// require('./controllers/ably.controller')(app, realtime)
 
 app.get('*', (req, res) => {
   process.env.NODE_ENV === 'production'

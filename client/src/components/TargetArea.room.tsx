@@ -24,8 +24,7 @@ function TargetArea({guessLock, updateGuess, screen, toggleScreen}: TargetAreaPr
 
     
     useEffect(()=>{
-        setSlider(guess)
-        setGuessLine({left:guess+'%'})
+        setSlider(game.guess)
     }, [guess])
 
     function onSliderChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -40,18 +39,17 @@ function TargetArea({guessLock, updateGuess, screen, toggleScreen}: TargetAreaPr
             
             <div className='targetWindow'>
                 <div className='target' style={{left: `${target - 12}%`}} id='target'>
-                    2
-                    <div className='pt3'> 
-                    3
-                        <div className="pt4">4</div>
-                    3
-                    </div> 
-                    2
+                    <div className="targetBlock pt2">2</div>
+                    <div className="targetBlock pt3">3</div>
+                    <div className="targetBlock pt4">4</div>
+                    <div className="targetBlock pt3">3</div>
+                    <div className="targetBlock pt2">2</div>
+                
                 </div>
 
                 <div id='screen' className='screen' style={screen ? {width:'102%'} : {width:'0%'}}></div>
 
-                <div id='guessLine' className='guessLine' style={guessLine}></div>
+                {/* <div id='guessLine' className='guessLine' style={guessLine}></div> */}
             </div>
 
             <input type="range" id='targetSlider' disabled={guessLock}

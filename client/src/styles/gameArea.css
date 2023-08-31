@@ -5,42 +5,30 @@
     align-items: center;
     background-color: var(--mainBG);
 }
-.gameArea button {
-  height: 2em;
-  margin: .5rem;
-  /* font-size: auto; */
-  width: 48%;
-  border-radius: 25px; 
-  box-shadow: 2px 2px 4px 0 gray;
-}
-.gameButtons {
+.gameButtonsDiv {
   display: flex;
   justify-content: center;
 }
-.gameButtons button{
+.secondGuess {
   opacity: .5;
 }
-.gameButtons button:hover:enabled {
+.gameButtonsDiv button:hover:enabled {
   opacity: 1;
 }
 #over {
-  background-color: var(--greenbg);
-  color: var(--greentxt);
-  border: 2px solid var(--greentxt);
+  background-color: var(--rangeRight);
 }
 #over.glow {
   opacity: 1;
-  box-shadow: 0 0 15px 1px #42bd6d,
+  box-shadow: 0 0 8px 1px var(--rangeRight),
   inset 0 0 15px 1px rgba(235, 235, 235, 0.5);
 }
 #under {
-  background-color: var(--redbg);
-  color: var(--redtxt);
-  border: 2px solid var(--redtxt);
+  background-color: var(--rangeLeft);
 }
 #under.glow{
   opacity: 1;
-  box-shadow: 0 0 15px 4px var(--redbg),
+  box-shadow: 0 0 15px 4px  var(--rangeLeft),
   inset 0 0 15px 1px rgba(235, 235, 235, 0.5);
 }
 .clueArea {
@@ -53,10 +41,10 @@
   font-size: .55em;
 }
 .clue {
+  color: var(--mainBG);
   width: 80%;
   min-height: 4rem;
-  background-color: white;
-  border: 3px solid #2da59f;
+  background-color: var(--lightBG);
   border-radius: 15px;
   font-size: 3em;
   font-family: Arial, Helvetica, sans-serif;
@@ -75,6 +63,7 @@
   border: none;
   height: 100%;
   width: 100%;
+  background-color: var(--lightBG);
 }
 ::placeholder {
   opacity: .35;

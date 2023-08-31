@@ -9,13 +9,18 @@ function DrawRanges({ranges, choose, hide}) {
 
     return (
         <Modal show={ranges.length ? true : false} onHide={hide}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton closeVariant="white">
                 <Modal.Title>Choose 1</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {ranges.map((range, i) => 
-                    range ? <button key={range[1]} name={i} onClick={chooseRange}> {range[0][0]} | {range[0][1]}</button>
-                    : <div style={{backgroundColor:"red"}}>fuck</div>
+                    range &&
+                    <button key={range[1]} name={i} onClick={chooseRange}
+                        style={{display: 'flex', justifyContent: 'space-around'}}> 
+                        <div>{range[0][0]}</div> <div>{range[0][1]}</div>
+                    </button>
+                    
+                    // : <div style={{backgroundColor:"red"}}>fuck</div>
                 )}
             </Modal.Body>
         </Modal>

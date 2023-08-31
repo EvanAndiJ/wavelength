@@ -61,8 +61,12 @@ export default function Start() {
             <input name='name' type='text' placeholder="Enter Your Name"
                 value={name} onChange={onInput}/>
 
-            <button disabled={roomCode.length === 4 ?  false : true} onClick={joinRoom}>Join</button>
-            <button disabled={name.length ?  false : true} onClick={newRoom}>New</button>
+            <button className='startButtons gameButtons'
+                disabled={roomCode.length === 4 ?  false : true} onClick={joinRoom}>
+                Join</button>
+            <button className='startButtons gameButtons'
+                disabled={name.length ?  false : true} onClick={newRoom}>
+                New</button>
         </div>
     )
 }

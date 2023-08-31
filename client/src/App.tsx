@@ -2,18 +2,21 @@ import './App.css';
 import React, {useState} from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 //@ts-expect-error
-import Menu from './components/Menu.App.tsx';
-
-import { configureAbly } from "@ably-labs/react-hooks";
+import { ColorContext } from './context/Contexts.ts';
 
 export default function App() {
-  const { roomCode } = useParams()
+  const [theme, setTheme] = useState('blues')
+  const toggleTheme = () => {
+    setTheme(theme === 'blues' ? 'reds' : 'blues')
+  }
   
   return (
-    <div className="App">
-      <h1>WAVELENGTH</h1>
+    <ColorContext.Provider value={{theme, setTheme: toggleTheme}}>
+    <div className={`App ${theme}`}>
+      <h1 className='mainTitle'>WAVELENGTH</h1>
       <Outlet/>
     </div>
+    </ColorContext.Provider>
   );
 }
 

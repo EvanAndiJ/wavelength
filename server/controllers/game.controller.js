@@ -76,6 +76,7 @@ exports.chooseRangeReq = async (req, res) => {
   await room.save()
   return res.status(200).send({game: room.game})
 }
+
 exports.authUser = async (req, res) => {
   const uniqueId = function () {
     return "id-" + totalPlayers + Math.random().toString(36).substring(2, 16);
@@ -95,7 +96,7 @@ exports.startGame = async (roomCode) => {
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
 
-  if (totalPlayers < 4) {
+  if (game.users.length < 4) {
     return {err: "Need More Players"}
   } else 
   if (game.teams[0].length) {
@@ -106,6 +107,8 @@ exports.startGame = async (roomCode) => {
     game.round = 1;
     game.screen = true;
     game.range = []
+    game.discard = []
+    game.score = [0,0]
 
     const newPsychs = {check: false, 1: null, 2: null};
     if (!game.psych[0]) {
@@ -137,7 +140,7 @@ exports.startGame = async (roomCode) => {
       return { game, psychs: newPsychs}
     } catch (err) {
       console.log(err)
-      
+      return
     }
   }
 }
@@ -180,8 +183,12 @@ exports.toggleScreen = async (roomCode) => {
   if (!game) { return { err:'Room Not Found' } }
   const currentPos = game.screen
   game.screen = !currentPos
-  game.save()
-  return { game }
+  try {
+    game.save()
+    return { game }
+  } catch (err) {
+    return
+  }
 
 }
 
@@ -221,18 +228,25 @@ exports.chooseRange = async ({roomCode, range}) => {
   game.target = Math.floor(Math.random() * 100);
   game.secondGuess = 1;
   game.clue = '';
-  await game.save();
-  return { game };
+  try {
+    await game.save();
+    return { game };
+  } catch (err) {
+    return
+  }
 
 }
-
 exports.setClue = async ({roomCode, clue}) => {
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return { err:'Room Not Found' } }
   game.clue = clue
   game.phase = 2
-  await game.save()
-  return { game }
+  try {
+    await game.save()
+    return { game }
+  } catch (err) {
+    return {err: 'already submitted'}
+  }
 }
 exports.updateGuess = async ({roomCode, guess}) => {
   const game = await Game.findOne({ code: roomCode })
@@ -242,7 +256,7 @@ exports.updateGuess = async ({roomCode, guess}) => {
     game.save()
     return { game }
   } catch (err) {
-    return updateGuess()
+    return updateGuess({roomCode, guess})
   }
 }
 exports.submitGuess = async ({roomCode, guess}) => {
@@ -267,8 +281,12 @@ exports.overUnder = async ({roomCode, side}) => {
   if (side=== 'r') {
     game.secondGuess = game.secondGuess === 2 ? 1 : 2
   }
-  game.save()
-  return { game }
+  try {
+    game.save()
+    return { game }
+  } catch (err) {
+    return overUnder({roomCode, side})
+  }
 }
 exports.submitSecondGuess = async ({roomCode}) => {
   const game = await Game.findOne({ code: roomCode })
@@ -298,7 +316,10 @@ exports.submitSecondGuess = async ({roomCode}) => {
   if (game.turn === 2) { game.round++ }
   game.turn = game.turn === 1 ? 2 : 1;
   game.phase = 1
-  game.save()
-
-  return {game}
+  try {
+    game.save()
+    return {game}
+  } catch (err) {
+    return {err: "already submitted"}
+  }
 }

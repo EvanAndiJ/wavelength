@@ -30,3 +30,8 @@ export const UserContext = createContext({
     screen: false,
     ably: '',
 })
+
+export const ColorContext = createContext({
+    theme: 'blues',
+    setTheme: function() { this.theme = this.theme === 'blues' ? 'reds' : 'blues'}
+})

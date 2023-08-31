@@ -4,6 +4,7 @@ const User = db.user
 const Game = db.game
 
 exports.newRoom = async (req, res) => {
+  console.log('newRoom')
   const makeRoomCode = async () => {
     const abc = 'abcdefghijklmnopqrstuvwxyz'
     let roomCode = ''
@@ -175,8 +176,10 @@ exports.getRoom = async (roomCode) => {
 }
 exports.userLeaving = async (id) => {
   const user = await User.findOne({ably: id})
+  if (!user) {return {}}
 
   const game = await Game.findOne({ code: user.room })
+  if (!game) { return {}}
   if (game.totalUsers > 0) {game.totalUsers--}
   try {
     await game.save()

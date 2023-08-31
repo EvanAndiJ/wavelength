@@ -49,7 +49,7 @@ function TeamBox ({context, game, user, team, onJoin}: TeamBoxProps) {
   return (
       <div className="teamBox" id={`t${team}b`}>
           <div className='lightBox'>
-              <span className={lightClass} id='t1g'>
+              <span className={lightClass} id={`t${team}g`}>
                   Team {team}
               </span>
           </div>
@@ -59,16 +59,16 @@ function TeamBox ({context, game, user, team, onJoin}: TeamBoxProps) {
               <div className='score' >{score}</div>
               {playing ? 
                 (<div style={{ display:'flex', flexDirection:'column', width:'45%' }}>
-                <div className='joinButton'></div>
+                <div className='joinButton '></div>
                 </div>)
 
                : (<div style={{ display:'flex', flexDirection:'column', width:'45%' }}>
 
                   <button onClick={()=>onJoin(team,0)} disabled={userContext.team === team ? true : false}
-                      className='joinButton'>join team</button>
+                      className={`join${team} joinButton gameButtons`}>join team</button>
 
                   <button onClick={()=>onJoin(team,1)} disabled={psych ? true : false} 
-                      className='joinButton'>join psych</button>
+                      className={`join${team} joinButton gameButtons`}>join psych</button>
 
                </div>)
               }
@@ -77,7 +77,7 @@ function TeamBox ({context, game, user, team, onJoin}: TeamBoxProps) {
           <div className='teamList'>
               <div>Psychic: {gameContext.psych[team-1]} 
                   { (!playing && userContext.psych && userContext.team === team) &&
-                    <button onClick={()=>onJoin(team,0)}>x</button> }
+                    <button onClick={()=>onJoin(team,0)} className='cancelPsych'>x</button> }
               </div>
               {users.map(user => user != psych ? <div key={user}>{user}</div> : null)}
           </div>

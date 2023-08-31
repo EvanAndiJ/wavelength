@@ -160,7 +160,6 @@ async function chooseRange(room, range) {
   .then(res => res.json())
 }
 async function addClientId(roomCode, _id, clientId) {
-  // console.log('addClientId')
   return fetch('/api/addClientId', {
     method: 'POST',
     headers: {

@@ -6,7 +6,7 @@ function Win ({show, toggleShow, team}) {
     return (
         <div>
             <Modal show={show} onHide={toggleShow}>
-                <Modal.Header  closeButton>
+                <Modal.Header closeButton closeVariant="white">
                 Winners!
                 </Modal.Header>
                 <Modal.Body>

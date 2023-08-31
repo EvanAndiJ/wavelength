@@ -67,7 +67,7 @@ module.exports = function(app) {
     newChannel.presence.subscribe("enter", async (user) => {
         const newUserId = user.clientId
         const roomCode = user.data.roomCode
-        console.log('////User Entered/////', newUserId)
+        console.log(`////User Entered///// ${Date.now()}`, newUserId)
         
         const game = await roomCon.getRoom(roomCode)
         if (!game )  {return {err:'invalid room'}}
@@ -98,7 +98,7 @@ module.exports = function(app) {
       if (leavingUser in userChannels) {
         userChannels[leavingUser].unsubscribe()
         delete userChannels[leavingUser]
-      }
+      }//
       newChannel.publish('gameState', game);
     });
     newChannel.subscribe('target', (update) =>  { 
@@ -106,9 +106,11 @@ module.exports = function(app) {
         // publishGame()
     });
     newChannel.subscribe('resub', (update) => {
-        const id = update.data.substring(12)
+      consol.log(update.data)
+        const id = update.data.id.substring(12)
+        const room = update.data.roomCode
         userChannels[id] = realtime.channels.get(update.data)
-        subscribeToPlayerInput(userChannels[id], id);
+        subscribeToPlayerInput(userChannels[id], gameChannels[room], id);
     });
   }
   function subscribeToPlayerInput(userChannel, gameChannel, userId) {
@@ -116,18 +118,24 @@ module.exports = function(app) {
     userChannel.subscribe('start', (update) =>  { 
         gameCon.startGame(update.data)
         .then(res => {
-          if (res.psychs.check) {
-            if (res.psychs[1]) {
-              const id = res.psychs[1].ably
-              userChannels[id].publish('updateUser', res.psychs[1])
+          if (res.err) {
+            userChannel.publish('err', res.err)
+          } else {
+            if (res.psychs.check) {
+              if (res.psychs[1]) {
+                const id = res.psychs[1].ably
+                userChannels[id].publish('updateUser', res.psychs[1])
+              }
+              if (res.psychs[2]) {
+                const id = res.psychs[2].ably
+                userChannels[id].publish('updateUser', res.psychs[2])
+              }
             }
-            if (res.psychs[2]) {
-              const id = res.psychs[2].ably
-              userChannels[id].publish('updateUser', res.psychs[2])
-            }
+            // gameChannels[update.data].publish('gameStart', res.game);
+            gameChannel.publish('gameStart', res.game);
           }
-          gameChannels[update.data].publish('gameStart', res.game);
         })
+          
     });
     userChannel.subscribe('stop', (update) =>  { 
       gameCon.endGame(update.data)
@@ -154,7 +162,7 @@ module.exports = function(app) {
     userChannel.subscribe('chooseRange', (update) =>  { 
         gameCon.chooseRange(update.data)
         .then(res => {
-            gameChannel.publish('gameState', res.game);
+            gameChannel.publish('drawComplete', res.game);
             userChannel.publish('drawnRanges', 'done')
         })
     });
@@ -282,6 +290,7 @@ module.exports = function(app) {
     return res.status(200).send({gameChannels: Object.keys(gameChannels)});
   });
   app.post('/api/newGameChannel', (req, res) => {
+    console.log('newGameChannel')
     const roomCode = req.body.roomCode
     newGameChannel(roomCode)
   })

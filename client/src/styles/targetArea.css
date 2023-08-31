@@ -2,9 +2,6 @@
     display: flex;
     width:  98%;
     margin: auto;
-    /* border: var(--mainBorder); */
-    /* border-radius: 25px 25px 0px 0px; */
-    /* background-color: var(--mainBG); */
     align-items: center;
     flex-direction: column;
   }
@@ -12,11 +9,10 @@
     display: flex;
     position: relative;
     margin: auto;
-    background-color: rgba(255, 255, 255, 0.856);
+    background-color: var(--lightBG);
     height: 1.5em;
     width: 90%;
     border-radius: 15px;
-    border: var(--mainBorder);
     font-family: sans-serif;
     font-weight: bold;
     margin-top: 1em;
@@ -28,43 +24,48 @@
     height: 110%;
     width: 25%;
     position: relative;
-    /* left: 38%; */
     background-color: rgb(233, 233, 102);
     color: #beb93f;
     box-shadow: 0 0 6px rgb(133, 133, 133);
   }
-  .pt3 {
-    background-color: rgb(252, 185, 62);
-    width: 60%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: #be863f;
-    box-shadow: 0 0 6px black;
-  }
-  .pt4 {
-    background-color: rgb(77, 77, 161);
-    position: absolute;
+  .targetBlock {
     width: 20%;
     height: 100%;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #b5bcf0;
-    box-shadow: 0 0 6px black;
+  }
+  .pt2 {
+    background-color: rgb(233, 233, 102);
+    color: #9c9828;
+  }
+  .pt3 {
+    background-color: var(--rangeRight);
+    color: #a77431;
+    z-index: 2;
+    box-shadow: 0 0 6px rgb(0, 0, 0);
+  }
+  .pt4 {
+    background-color: var(--rangeLeft);
+    color: #4f71ce;
+    z-index: 3;
+    box-shadow: 0 0 6px rgb(0, 0, 0);
   }
   .screen {
+    z-index: 5;
     text-align: center;
     position: absolute;
     left: -1%;
     margin: auto;
     height: 100%;
     /* width: 0%; */
-    background-color: var(--mainBG);
+    /* background-color: var(--mainButton); */
+    background: var(--rangeGradient);
     border-radius: 15px;
     transition: width 0.5s ease-in;
+    /* border: 2px solid green; */
+    
   }
   .guessLine {
     position: absolute;
@@ -75,34 +76,78 @@
     background-color: rgb(211, 84, 84);
     box-shadow: 0 0 3px rgb(218, 90, 90);
     transition: left 0.5s ease-in;
+    display: none;
   }
   #targetSlider {
-    width: 92%;
+    z-index: 5;
+    width: 90%;
     /* margin: auto; */
     margin-top: 10px;
     transition: left 0.5s ease-in;
   }
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 5px;
+    transition: left 0.5s ease-in;
+   }
+   input[type="range"]:focus {
+    outline: none;
+   }
+   input[type="range"]::-webkit-slider-runnable-track {
+    background-color: var(--lightBG);
+    height: 5px;
+  }
+  
+  input[type="range"]::-moz-range-track {
+    background-color: var(--lightBG);
+    height: 5px;
+   }
+   input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 35px;
+    width: 15px;
+    margin-top: -25px;
+    border-radius: 10px;
+    border-bottom: 30px solid #da4e4e;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    /* box-shadow: 0 0 2px 2px rgba(92, 92, 92, 0.438); */
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    background: transparent;
+    height: 0;
+    width: 0;
+    transform: translateY(-7px);
+    border-bottom: 30px solid #da4e4e;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: none;
+    border-radius: 15px;
+   }
+
 
   .rangeArea {
     width: 100%;
     min-height: 2em;
-    margin: auto;
+    margin: .25em 0;
     display: flex;
     justify-content: center;
-    border-top: 3px solid #2da59f;
-    border-bottom: 3px solid #2da59f;
+    background: var(--rangeGradient);
+    /* box-shadow: var(--mainShadow); */
     font-family: Trebuchet MS, sans-serif;
     font-size: 1.75em;
     font-weight: bold;
     text-align: center;
+    text-shadow: var(--textShadow);
   }
   .rLeft {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e35757;
-    color: #882323;
+    /* color: #882323; */
     padding: 2%;
   }
   .rRight {
@@ -111,6 +156,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #4dda7e ;
-    color: #236a3b;
+    /* color: #236a3b; */
   }

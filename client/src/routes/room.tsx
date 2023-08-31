@@ -8,7 +8,7 @@ import useGame from '../hooks/useGame';
 import useUser from '../hooks/useUser';
 
 //@ts-ignore
-import { GameContext, UserContext } from '../context/Contexts.ts';
+import { GameContext, UserContext, ColorContext } from '../context/Contexts.ts';
 //@ts-ignore
 import TargetArea from '../components/TargetArea.room.tsx';
 //@ts-ignore
@@ -46,9 +46,11 @@ export default function Room() {
     const [guessLock, setGuessLock] = useState((game.playing && game.phase === 4) ? true : false)
 
     const realtime = configureAbly({ authUrl: "/auth" });
+
     realtime.connection.once('connected', async ()=> {
         // console.log('connected')
         if (user.ably !== realtime.auth.clientId) {
+            // console.log('addClientId')
             const res = await http.addClientId(roomCode, user._id, realtime.auth.clientId)
             setUser(res.user)
         }
@@ -102,8 +104,13 @@ export default function Room() {
         if (post === 'drawnRanges') {
             setDrawn(update.data)
         }
+        if (post === 'drawComplete') {
+            setGame(data)
+            setIsDraw(false)
+        }
         if (post === 'closeScreen') {
             setScreen(true)
+            // setIsDraw(false)
         }
         if (post === 'err') {
             setErr(data)
@@ -150,25 +157,28 @@ export default function Room() {
         //         break;
         // }
     })
-    const [presence] = usePresence(`gameRoom${roomCode}`, {name: user.name, roomCode})
+    const [presence, updatePresence] = usePresence(`gameRoom${roomCode}`, {name: user.name, roomCode})
     const [userChannel] = useChannel(`userChannel-${user.ably ? user.ably : realtime.auth.clientId}`, 
         (update) => {
-            if (update.name === 'drawnRanges') {
+            const post = update.name
+            if (post === 'drawnRanges') {
                 if (update.data === 'done') {
                     setDrawn([])
                 } else {
                     setDrawn(update.data)
                 }
             }
-            if (update.name === 'updateUser') {
+            if (post === 'updateUser') {
                 setUser(update.data)
+            }
+            if (post === 'err') {
+                setErr(update.data)
             }
         }
     )
 
-    // Start and End the game
+    // Start and End the game 
     function gameToggle () {
-        
         if (!game.playing) {
             // if (game.totalUsers >= 4) {
                 userChannel.publish('start', roomCode)
@@ -228,27 +238,35 @@ export default function Room() {
         console.log('unsub')
         userChannel.publish('unsub', 'unsub')
     }
-    function reconnect() {
-        //LOOK INTO THIS ERRor: Mismatched clientId for existing connection
-        gameRoom.publish('resub', userChannel.name)
+    function reconnectUser() {
+        //LOOK INTO THIS ERRor: Mismatched clientId for existing connection 
+        gameRoom.publish('resub', {id: userChannel.name, roomCode})
+    }
+    function reconnectGame() {
+        const res = http.newGameChannel(roomCode)
     }
     function reset() {
         userChannel.publish('gcClean', roomCode)
     }
+
+    // useEffect(()=>{
+    //     console.log('room effect')
+    // })
+
         
     return (
         <div id='gameRoom'>
-            <Menu gameToggle={gameToggle}/>
-            <button onClick={()=>console.log(realtime)}>game</button> 
-            {/* <button onClick={()=>console.log(user)}>user</button>
-            <button onClick={()=>console.log(presence)}>pres</button>
-            <button onClick={nextTurn}>turn+</button>
-            <button onClick={ping}>print</button>
-            <button onClick={()=>console.log(screen)}>screen</button>
-            
-            <button onClick={reset}>reset</button>
-            <button onClick={reconnect}>resub</button> */}
-            <br/>
+            <Menu 
+            playing={game.playing} 
+            howTo={toggleHowTo} 
+            gameToggle={gameToggle} 
+            reconnectUser={reconnectUser} 
+            reconnectGame={reconnectGame}
+            drawRanges={drawRanges}
+            />
+
+            {/* <button onClick={()=>console.log(gameRoom)}>game</button> 
+            <button onClick={()=>console.log(userChannel)}>userChannel</button> */}
             Game Room {roomCode}
 
             { err && <div> {err} </div>}
@@ -283,9 +301,6 @@ export default function Room() {
                 onJoin={changeTeams} 
                 />
 
-            </UserContext.Provider>
-            </GameContext.Provider>
-            
                 <DrawRanges 
                 ranges={drawn} 
                 choose={chooseRange} 
@@ -293,7 +308,8 @@ export default function Room() {
                 />
                 
                 <Win show={showWin} toggleShow={toggleWin} team={winner}/>
-                
+            </UserContext.Provider>
+            </GameContext.Provider>
             </div>
         </div>
     )
