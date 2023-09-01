@@ -1,8 +1,10 @@
 const roomCon = require('./room.controller');
 const gameCon = require('./game.controller');
-const Ably = require("ably");
+
 const { channel } = require('diagnostics_channel');
 const { update } = require('../models/user.model');
+
+const Ably = require("ably");
 const AblyKey = `qj-X9A.1Mqy4w:7nUaL2KcS4j38URmnTZMwb7t_A71ZbcKgXrbE2pw_Pk`
 const realtime = new Ably.Realtime({
   key: AblyKey,
@@ -98,7 +100,7 @@ module.exports = function(app) {
       if (leavingUser in userChannels) {
         userChannels[leavingUser].unsubscribe()
         delete userChannels[leavingUser]
-      }//
+      }
       newChannel.publish('gameState', game);
     });
     newChannel.subscribe('target', (update) =>  { 

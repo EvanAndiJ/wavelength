@@ -10,7 +10,7 @@ function Win ({show, toggleShow, team}) {
                 Winners!
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Team {team} Wins!</p>
+                    <h1 style={{margin: "auto"}}>Team {team} Wins!</h1>
                 </Modal.Body>
             </Modal>
         </div>

@@ -110,6 +110,16 @@
   background-color: var(--mainBG);
   color: var(--mainBorderColor)
 }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1em;
+}
+.topbarButton {
+  color: var(--lightText);
+  border: none;
+  background-color: transparent;   
+}
 .dropdown-toggle::after {
   display: none !important; 
 }

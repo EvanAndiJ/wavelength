@@ -8,6 +8,10 @@ import useGame from '../hooks/useGame';
 import useUser from '../hooks/useUser';
 
 //@ts-ignore
+import howToIcon from './img/question-circle-white.svg'
+//@ts-ignore
+import powerIcon from './img/power-button-white.svg'
+//@ts-ignore
 import { GameContext, UserContext, ColorContext } from '../context/Contexts.ts';
 //@ts-ignore
 import TargetArea from '../components/TargetArea.room.tsx';
@@ -256,18 +260,28 @@ export default function Room() {
         
     return (
         <div id='gameRoom'>
-            <Menu 
+            {/* <Menu 
             playing={game.playing} 
             howTo={toggleHowTo} 
             gameToggle={gameToggle} 
             reconnectUser={reconnectUser} 
             reconnectGame={reconnectGame}
             drawRanges={drawRanges}
-            />
+            /> */}
 
             {/* <button onClick={()=>console.log(gameRoom)}>game</button> 
             <button onClick={()=>console.log(userChannel)}>userChannel</button> */}
-            Game Room {roomCode}
+            <div className='topbar'>
+                <div>Game Room {roomCode}</div>
+                <div>
+                    {/* <button className='topbarButton' onClick={toggleHowTo}><img src={howToIcon}/></button>
+                    <button className='topbarButton' onClick={gameToggle}><img src={powerIcon}/></button>    */}
+                    <button className='topbarButton' onClick={toggleHowTo}>
+                        <img src='../question-circle-white.svg'/></button>
+                    <button className='topbarButton' onClick={gameToggle}>
+                        <img src='../power-button-white.svg'style={{opacity: game.playing ? '1' : '.5'}}/></button>    
+                </div>
+            </div>
 
             { err && <div> {err} </div>}
 
