@@ -88,7 +88,7 @@ export default function Dash() {
 
             : <div>
             <input type='password' value={pass} onChange={onPassInput}/>
-            <button onClick={()=>setLoggedIn(pass === "Chestnut!" ? true : false) }>log in</button>
+            <button onClick={()=>setLoggedIn(pass === process.env.DASH_PASS ? true : false) }>log in</button>
             </div>
             }
         </div>

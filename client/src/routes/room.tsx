@@ -277,9 +277,10 @@ export default function Room() {
                     {/* <button className='topbarButton' onClick={toggleHowTo}><img src={howToIcon}/></button>
                     <button className='topbarButton' onClick={gameToggle}><img src={powerIcon}/></button>    */}
                     <button className='topbarButton' onClick={toggleHowTo}>
-                        <img src='../question-circle-white.svg'/></button>
-                    <button className='topbarButton' onClick={gameToggle}>
-                        <img src='../power-button-white.svg'style={{opacity: game.playing ? '1' : '.5'}}/></button>    
+                        <img src='../question-circle-white.svg' alt='How To Play'/></button>
+                    <button className='topbarButton' onClick={game.host === user.name ? gameToggle : ()=>{}}>
+                        <img src='../power-button-white.svg'style={{opacity: game.playing ? '1' : '.5'}}
+                        alt={game.playing ? 'End Game' : 'Start Game'}/></button>    
                 </div>
             </div>
 
