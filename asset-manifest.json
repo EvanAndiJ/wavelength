@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wavelength/static/css/main.10b5bcd5.css",
+    "main.js": "/wavelength/static/js/main.8fc438f1.js",
+    "index.html": "/wavelength/index.html",
+    "main.10b5bcd5.css.map": "/wavelength/static/css/main.10b5bcd5.css.map",
+    "main.8fc438f1.js.map": "/wavelength/static/js/main.8fc438f1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.10b5bcd5.css",
+    "static/js/main.8fc438f1.js"
+  ]
+}
