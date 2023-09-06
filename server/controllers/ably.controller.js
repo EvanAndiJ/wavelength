@@ -1,13 +1,9 @@
 const roomCon = require('./room.controller');
 const gameCon = require('./game.controller');
 
-const { channel } = require('diagnostics_channel');
-const { update } = require('../models/user.model');
-
 const Ably = require("ably");
-const AblyKey = process.env.ABLY_KEY
 const realtime = new Ably.Realtime({
-  key: AblyKey,
+  key: process.env.ABLY_KEY,
   echoMessages: false,
 });
 
@@ -46,6 +42,7 @@ module.exports = function(app) {
           }
       });
   });
+
   realtime.connection.once("connected", () => {
     console.log('////Realtime Connect/////')
   });
