@@ -50,7 +50,7 @@ export default function Room() {
     const [guessLock, setGuessLock] = useState((game.playing && game.phase === 4) ? true : false)
 
     const authURL = process.env.NODE_ENV === "production" ? "https://wavelength-ej23-2dd5b345718d.herokuapp.com/auth" : '/auth'
-    const realtime = configureAbly({ authUrl: "/auth" });
+    const realtime = configureAbly({ authUrl: authURL });
 
     realtime.connection.once('connected', async ()=> {
         // console.log('connected')
