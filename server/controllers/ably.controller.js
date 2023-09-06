@@ -5,7 +5,7 @@ const { channel } = require('diagnostics_channel');
 const { update } = require('../models/user.model');
 
 const Ably = require("ably");
-const AblyKey = `qj-X9A.1Mqy4w:7nUaL2KcS4j38URmnTZMwb7t_A71ZbcKgXrbE2pw_Pk`
+const AblyKey = process.env.ABLY_KEY
 const realtime = new Ably.Realtime({
   key: AblyKey,
   echoMessages: false,
