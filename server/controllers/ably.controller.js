@@ -222,6 +222,7 @@ module.exports = function(app) {
         userChannels[id] = realtime.channels.get(update.data)
         subscribeToPlayerInput(userChannels[id], gameChannels[room], id);
     });
+    return newChannel
   }
   function subscribeToPlayerInput(userChannel, gameChannel, userId) {
     // console.log('subPlayerInput')
@@ -402,14 +403,10 @@ module.exports = function(app) {
   app.post('/api/newGameChannel', (req, res) => {
     console.log('newGameChannel')
     const roomCode = req.body.roomCode
-    newGameChannel(roomCode)
+    const newChannel = newGameChannel(roomCode)
+    console.log('gameChannels', gameChannels)
+    return res.status(200).send({ok: true, gameChannel: newChannel})
   })
-  // app.post("/admin/addGameChannel", (req, res) => {
-  //   const roomCode = req.body.roomCode
-  //   // gameChannels[roomCode].unsubscribe()
-  //   // delete gameChannels[roomCode]
-  //   return res.status(200).send({gameChannels: Object.keys(gameChannels)});
-  // });
   app.post("/admin/removeGameChannel", (req, res) => {
     const roomCode = req.body.roomCode
     gameChannels[roomCode].unsubscribe()
