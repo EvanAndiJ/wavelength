@@ -27,29 +27,125 @@ let round = 1;
 let discard = []
 let psychUsed = [[],[]]
 
+exports.ablyAuth = async (req, res) => {
+  const tokenParams = { 
+      clientId: "id-" + totalUsers.toString() + Math.random().toString(36).substring(2, 16) 
+  };
+  realtime.auth.createTokenRequest(tokenParams, function (err, tokenRequest) {
+      if (err) {
+          return res.status(500).send("Error requesting token: " + JSON.stringify(err));
+      } else {
+          res.setHeader("Content-Type", "application/json");
+          return  res.send(JSON.stringify(tokenRequest));
+      }
+  });
+};
+
+exports.reconnect =  async (req, res) => {
+  const roomCode = req.body.roomCode
+  const room = await roomCon.getRoom(roomCode)
+  if (!room )  {return res.status(404).send({err:'invalid room'})}
+};
+exports.userChannels = (req, res) => {
+  return res.status(200).send({userChannels: Object.keys(userChannels)});
+};
+
+exports.addUserChannel = (req, res) => {
+  const id = req.body.id
+  // userChannels[id].unsubscribe()
+  // delete userChannels[id]
+  return res.status(200).send({userChannels: Object.keys(userChannels)});
+};
+exports.removeUserChannel = (req, res) => {
+  const id = req.body.id
+  userChannels[id].unsubscribe()
+  delete userChannels[id]
+  return res.status(200).send({userChannels: Object.keys(userChannels)});
+};
+exports.gameChannels = (req, res) => {
+  return res.status(200).send({gameChannels: Object.keys(gameChannels)});
+};
+function newGameChannel(roomCode) {
+  const newChannel = realtime.channels.get("gameRoom"  +  roomCode);
+  gameChannels[roomCode] = newChannel
+
+  newChannel.presence.subscribe("enter", async (user) => {
+      const newUserId = user.clientId
+      const roomCode = user.data.roomCode
+      console.log(`////User Entered///// ${Date.now()}`, newUserId)
+      
+      const game = await roomCon.getRoom(roomCode)
+      if (!game )  {return {err:'invalid room'}}
+      // console.log('user entere', game) 
+
+      // if (!game.users.includes(user.data.name)) {
+      //   console.log(game.teams[0])
+      //   game.users.push(user.data.name)
+      //   game.teams[0].push(user.data.name)
+      // } 
+
+      // game.totalUsers++
+      // console.log('enter', game)
+      // await game.save()
+      userChannels[newUserId] = realtime.channels.get("userChannel-" + newUserId);
+      subscribeToPlayerInput(userChannels[newUserId], newChannel, newUserId);
+
+      if (game.totalUsers > 1 )   {
+          newChannel.publish('teams', game.teams)
+          newChannel.publish('gameState', game);
+      }
+  });
+  newChannel.presence.subscribe("leave", async (user) => {
+    console.log('///user leaving///')
+    const leavingUser = user.clientId;
+
+    const game = await roomCon.userLeaving(leavingUser)
+    if (leavingUser in userChannels) {
+      userChannels[leavingUser].unsubscribe()
+      delete userChannels[leavingUser]
+    }
+    newChannel.publish('gameState', game);
+  });
+  newChannel.subscribe('target', (update) =>  { 
+      target = Math.floor(Math.random() * 100);
+      // publishGame()
+  });
+  newChannel.subscribe('resub', (update) => {
+    consol.log(update.data)
+      const id = update.data.id.substring(12)
+      const room = update.data.roomCode
+      userChannels[id] = realtime.channels.get(update.data)
+      subscribeToPlayerInput(userChannels[id], gameChannels[room], id);
+  });
+}
+// SHIT! FIX ME
+exports.newGameChannelReq = (req, res) => {
+  console.log('newGameChannel')
+  const roomCode = req.body.roomCode
+  newGameChannel(roomCode)
+};
+exports.removeGameChannel = (req, res) => {
+  const roomCode = req.body.roomCode
+  gameChannels[roomCode].unsubscribe()
+  delete gameChannels[roomCode]
+  return res.status(200).send({gameChannels: Object.keys(gameChannels)});
+};
+
 module.exports = function(app) {
 
-  app.use(function(req, res, next) {
-    res.header(
-      "Access-Control-Allow-Headers",
-      "x-access-token, Origin, Content-Type, Accept"
-    );
-    next();
-  });
-  
-  app.get("/auth", (req, res) => {
-      const tokenParams = { 
-          clientId: "id-" + totalUsers.toString() + Math.random().toString(36).substring(2, 16) 
-      };
-      realtime.auth.createTokenRequest(tokenParams, function (err, tokenRequest) {
-          if (err) {
-              return res.status(500).send("Error requesting token: " + JSON.stringify(err));
-          } else {
-              res.setHeader("Content-Type", "application/json");
-              return  res.send(JSON.stringify(tokenRequest));
-          }
-      });
-  });
+  // app.get("/auth", (req, res) => {
+  //     const tokenParams = { 
+  //         clientId: "id-" + totalUsers.toString() + Math.random().toString(36).substring(2, 16) 
+  //     };
+  //     realtime.auth.createTokenRequest(tokenParams, function (err, tokenRequest) {
+  //         if (err) {
+  //             return res.status(500).send("Error requesting token: " + JSON.stringify(err));
+  //         } else {
+  //             res.setHeader("Content-Type", "application/json");
+  //             return  res.send(JSON.stringify(tokenRequest));
+  //         }
+  //     });
+  // });
 
   realtime.connection.once("connected", () => {
     console.log('////Realtime Connect/////')
@@ -67,59 +163,59 @@ module.exports = function(app) {
       target,
     })
   }
-  function newGameChannel(roomCode) {
-    const newChannel = realtime.channels.get("gameRoom"  +  roomCode);
-    gameChannels[roomCode] = newChannel
+  // function newGameChannel(roomCode) {
+  //   const newChannel = realtime.channels.get("gameRoom"  +  roomCode);
+  //   gameChannels[roomCode] = newChannel
 
-    newChannel.presence.subscribe("enter", async (user) => {
-        const newUserId = user.clientId
-        const roomCode = user.data.roomCode
-        console.log(`////User Entered///// ${Date.now()}`, newUserId)
+  //   newChannel.presence.subscribe("enter", async (user) => {
+  //       const newUserId = user.clientId
+  //       const roomCode = user.data.roomCode
+  //       console.log(`////User Entered///// ${Date.now()}`, newUserId)
         
-        const game = await roomCon.getRoom(roomCode)
-        if (!game )  {return {err:'invalid room'}}
-        // console.log('user entere', game) 
+  //       const game = await roomCon.getRoom(roomCode)
+  //       if (!game )  {return {err:'invalid room'}}
+  //       // console.log('user entere', game) 
 
-        // if (!game.users.includes(user.data.name)) {
-        //   console.log(game.teams[0])
-        //   game.users.push(user.data.name)
-        //   game.teams[0].push(user.data.name)
-        // } 
+  //       // if (!game.users.includes(user.data.name)) {
+  //       //   console.log(game.teams[0])
+  //       //   game.users.push(user.data.name)
+  //       //   game.teams[0].push(user.data.name)
+  //       // } 
 
-        // game.totalUsers++
-        // console.log('enter', game)
-        // await game.save()
-        userChannels[newUserId] = realtime.channels.get("userChannel-" + newUserId);
-        subscribeToPlayerInput(userChannels[newUserId], newChannel, newUserId);
+  //       // game.totalUsers++
+  //       // console.log('enter', game)
+  //       // await game.save()
+  //       userChannels[newUserId] = realtime.channels.get("userChannel-" + newUserId);
+  //       subscribeToPlayerInput(userChannels[newUserId], newChannel, newUserId);
 
-        if (game.totalUsers > 1 )   {
-            newChannel.publish('teams', game.teams)
-            newChannel.publish('gameState', game);
-        }
-    });
-    newChannel.presence.subscribe("leave", async (user) => {
-      console.log('///user leaving///')
-      const leavingUser = user.clientId;
+  //       if (game.totalUsers > 1 )   {
+  //           newChannel.publish('teams', game.teams)
+  //           newChannel.publish('gameState', game);
+  //       }
+  //   });
+  //   newChannel.presence.subscribe("leave", async (user) => {
+  //     console.log('///user leaving///')
+  //     const leavingUser = user.clientId;
 
-      const game = await roomCon.userLeaving(leavingUser)
-      if (leavingUser in userChannels) {
-        userChannels[leavingUser].unsubscribe()
-        delete userChannels[leavingUser]
-      }
-      newChannel.publish('gameState', game);
-    });
-    newChannel.subscribe('target', (update) =>  { 
-        target = Math.floor(Math.random() * 100);
-        // publishGame()
-    });
-    newChannel.subscribe('resub', (update) => {
-      consol.log(update.data)
-        const id = update.data.id.substring(12)
-        const room = update.data.roomCode
-        userChannels[id] = realtime.channels.get(update.data)
-        subscribeToPlayerInput(userChannels[id], gameChannels[room], id);
-    });
-  }
+  //     const game = await roomCon.userLeaving(leavingUser)
+  //     if (leavingUser in userChannels) {
+  //       userChannels[leavingUser].unsubscribe()
+  //       delete userChannels[leavingUser]
+  //     }
+  //     newChannel.publish('gameState', game);
+  //   });
+  //   newChannel.subscribe('target', (update) =>  { 
+  //       target = Math.floor(Math.random() * 100);
+  //       // publishGame()
+  //   });
+  //   newChannel.subscribe('resub', (update) => {
+  //     consol.log(update.data)
+  //       const id = update.data.id.substring(12)
+  //       const room = update.data.roomCode
+  //       userChannels[id] = realtime.channels.get(update.data)
+  //       subscribeToPlayerInput(userChannels[id], gameChannels[room], id);
+  //   });
+  // }
   function subscribeToPlayerInput(userChannel, gameChannel, userId) {
     // console.log('subPlayerInput')
     userChannel.subscribe('start', (update) =>  { 
