@@ -68,6 +68,7 @@ export async function newGameChannel (roomCode) {
       method: 'POST',
       headers: {
         'content-type':'application/json',
+        'Access-Control-Allow-Origin': endpoint
       },
       body: JSON.stringify({roomCode})
     })
