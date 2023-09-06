@@ -1,5 +1,9 @@
+const endpoint = process.env.NODE_ENV === 'production' ?
+  "https://wavelength-ej23-2dd5b345718d.herokuapp.com/"
+  : ''
+
 export async function NewRoom (name) {
-    return fetch('/api/newRoom', {
+    return fetch(`${endpoint}/api/newRoom`, {
         method: 'POST',
         headers: {
           'content-type':'application/json',
