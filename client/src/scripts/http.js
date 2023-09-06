@@ -1,5 +1,5 @@
 export async function NewRoom (name) {
-    return fetch('/api/newRoom', {
+    return fetch('/api/nsewRoom', {
         method: 'POST',
         headers: {
           'content-type':'application/json',

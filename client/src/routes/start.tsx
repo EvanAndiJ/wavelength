@@ -25,13 +25,12 @@ export default function Start() {
         }
     }
     async function newRoom () {
-        // console.log('newRoom')
         const res = await NewRoom(name)
         newGameChannel(res.game.code)
         setUser(res.creator)
         setTeams(res.game.teams)
         setGame(res.game)
-        nav(`/room/${res.game.code}`)
+        nav(`/wavelength/room/${res.game.code}`)
     }
     async function joinRoom() {
         // console.log('joinRoom')
@@ -44,7 +43,7 @@ export default function Start() {
             setUser(res.user)
             setTeams(res.game.teams)
             setGame(res.game)
-            nav(`/room/${res.game.code}`)
+            nav(`/wavelength/room/${res.game.code}`)
         }
     }
     
