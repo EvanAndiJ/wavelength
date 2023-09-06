@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 const app = express();
 //
 const corsOptions = {
-  origin: ["http://localhost:3001"]
+  origin: ["http://localhost:3001", 'https://evanandij.github.io']
 };
 app.use(cors(corsOptions))
 app.use(bodyParser.json());

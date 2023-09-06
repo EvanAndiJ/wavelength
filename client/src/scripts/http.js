@@ -3,7 +3,7 @@ const endpoint = process.env.NODE_ENV === 'production' ?
   : '/'
 
 export async function NewRoom (name) {
-  console.log(endpoint, 'delete me')
+  // console.log(endpoint, 'delete me')
     return fetch(`${endpoint}/api/newRoom`, {
         method: 'POST',
         headers: {
@@ -12,6 +12,7 @@ export async function NewRoom (name) {
         body: JSON.stringify({name})
       })
     .then(res => res.json())
+    .catch(err => console.log(err))
 }
 export async function getUserChannels () {
     return fetch(`${endpoint}/admin/userChannels`, {
