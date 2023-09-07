@@ -1,12 +1,11 @@
 const endpoint = process.env.NODE_ENV === 'production' ?
   "https://wavelength-ej23-2dd5b345718d.herokuapp.com"
-  : '/'
+  : ''
 
 export async function NewRoom (name) {
-  // console.log(endpoint, 'delete me')
+  console.log(endpoint, 'delete me')
     return fetch(`${endpoint}/api/newRoom`, {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'content-type':'application/json',
         },
@@ -85,7 +84,6 @@ export async function newGameChannel (roomCode) {
 async function reconnect (roomCode) {
   return fetch(`${endpoint}/api/reconnect`, {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'content-type':'application/json',
       },
@@ -96,7 +94,6 @@ async function reconnect (roomCode) {
 async function joinRoom(name, roomCode, userId=null) {
   return fetch(`${endpoint}/api/joinRoom`, {
       method: 'POST',
-      mode: 'cors',
       headers: {
         'content-type':'application/json',
       },
@@ -107,7 +104,6 @@ async function joinRoom(name, roomCode, userId=null) {
 async function joinTeam(user, team, psych) {
   return fetch(`${endpoint}/api/joinTeam`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -119,7 +115,6 @@ async function joinTeam(user, team, psych) {
 async function getUsers(roomCode) {
   return fetch(`${endpoint}/api/roomUsers`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -131,7 +126,6 @@ async function getUsers(roomCode) {
 async function startGame(roomCode) {
   return fetch(`${endpoint}/api/startGame`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -142,7 +136,6 @@ async function startGame(roomCode) {
 async function endGame(roomCode) {
   return fetch(`${endpoint}/api/endGame`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -153,7 +146,6 @@ async function endGame(roomCode) {
 async function getTarget(room) {
   return fetch(`${endpoint}/api/getTarget`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -164,7 +156,6 @@ async function getTarget(room) {
 async function drawRanges(room) {
   return fetch(`${endpoint}/api/drawRanges`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -175,7 +166,6 @@ async function drawRanges(room) {
 async function chooseRange(room, range) {
   return fetch(`${endpoint}/api/chooseRange`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },
@@ -186,7 +176,6 @@ async function chooseRange(room, range) {
 async function addClientId(roomCode, _id, clientId) {
   return fetch(`${endpoint}/api/addClientId`, {
     method: 'POST',
-    mode: 'cors',
     headers: {
       'content-type':'application/json',
     },

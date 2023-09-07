@@ -20,7 +20,7 @@ let target = 50;
 let range = []
 // let psych = {1:'', 2:''}
 // let clue = ''
-let guess =  50;
+// let guess =  50;
 // let score = [0,0]
 // let turn = 1;
 // let round = 1;
@@ -64,7 +64,7 @@ let guess =  50;
 // exports.gameChannels = (req, res) => {
 //   return res.status(200).send({gameChannels: Object.keys(gameChannels)});
 // };
-export function subscribeToPlayerInput(userChannel, gameChannel, userId) {
+exports.subscribeToPlayerInput = (userChannel, gameChannel, userId) => {
   // console.log('subPlayerInput')
   userChannel.subscribe('start', (update) =>  { 
       gameCon.startGame(update.data)
@@ -193,7 +193,7 @@ export function subscribeToPlayerInput(userChannel, gameChannel, userId) {
       })
   })
 }
-export async function newGameChannel(roomCode) {
+exports.newGameChannel = async (roomCode) => {
   const newChannel = realtime.channels.get("gameRoom"  +  roomCode);
   gameChannels[roomCode] = newChannel
 
@@ -206,7 +206,7 @@ export async function newGameChannel(roomCode) {
       if (!game )  {return {err:'invalid room'}}
       
       userChannels[newUserId] = realtime.channels.get("userChannel-" + newUserId);
-      subscribeToPlayerInput(userChannels[newUserId], newChannel, newUserId);
+      this.subscribeToPlayerInput(userChannels[newUserId], newChannel, newUserId);
 
       if (game.totalUsers > 1 )   {
           newChannel.publish('teams', game.teams)
