@@ -72,7 +72,7 @@ export async function removeGameChannel (roomCode) {
 export async function newGameChannel (roomCode) {
   return fetch(`${endpoint}/api/newGameChannel`, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'content-type':'application/json',
         // 'Access-Control-Allow-Origin': endpoint

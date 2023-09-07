@@ -3,7 +3,6 @@ const Room = db.room
 const Game = db.game
 const User = db.user
 const deck = require('../assets/ranges')
-const Ably = require("ably");
 
 exports.startGameReq = async (req, res) => {
   const room = await Room.findOne({ code: req.body.room })
@@ -174,8 +173,6 @@ exports.getTarget = async (roomCode) => {
   game.target = Math.floor(Math.random() * 100);
   game.save()
   return { game } 
-
-
 }
 exports.toggleScreen = async (roomCode) => {
 

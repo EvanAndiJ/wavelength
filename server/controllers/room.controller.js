@@ -2,6 +2,7 @@ const db = require("../models");
 const Room = db.room
 const User = db.user
 const Game = db.game
+import { newGameChannel } from "./ably.controller";
 
 exports.newRoom = async (req, res) => {
   console.log('newRoom')
@@ -26,6 +27,7 @@ exports.newRoom = async (req, res) => {
     host: creator.name,
     totalUsers: 1,
   })
+  newGameChannel(roomCode)
   return res.status(200).send({ game, creator })
 };
 exports.joinRoom = async (req, res) => {

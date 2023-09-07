@@ -26,7 +26,7 @@ export default function Start() {
     }
     async function newRoom () {
         const res = await NewRoom(name)
-        newGameChannel(res.game.code)
+        // newGameChannel(res.game.code)
         setUser(res.creator)
         setTeams(res.game.teams)
         setGame(res.game)
