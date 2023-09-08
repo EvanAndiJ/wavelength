@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/wavelength/static/css/main.5c1977ec.css",
+    "main.css": "/wavelength/static/css/main.935d7a2c.css",
     "main.js": "/wavelength/static/js/main.dad16cf4.js",
     "index.html": "/wavelength/index.html",
-    "main.5c1977ec.css.map": "/wavelength/static/css/main.5c1977ec.css.map",
+    "main.935d7a2c.css.map": "/wavelength/static/css/main.935d7a2c.css.map",
     "main.dad16cf4.js.map": "/wavelength/static/js/main.dad16cf4.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c1977ec.css",
+    "static/css/main.935d7a2c.css",
     "static/js/main.dad16cf4.js"
   ]
 }
