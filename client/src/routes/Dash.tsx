@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import http, {getUserChannels, removeUserChannel, getGameChannels, removeGameChannel,
-    newGameChannel,
-    newUserChannel} from '../scripts/http'
+import http, { adminLogin,
+    getUserChannels, removeUserChannel, getGameChannels, removeGameChannel,
+    newGameChannel, newUserChannel} from '../scripts/http'
 
 export default function Dash() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -48,6 +48,13 @@ export default function Dash() {
         setGames(newGames2)
     }
 
+    const login = async () => {
+        const res = await adminLogin(pass)
+        if (res.auth) {
+            setLoggedIn(true)
+        }
+    }
+
     return (
         <div>
             Dashbaord
@@ -88,7 +95,7 @@ export default function Dash() {
 
             : <div>
             <input type='password' value={pass} onChange={onPassInput}/>
-            <button onClick={()=>setLoggedIn(pass === process.env.DASH_PASS ? true : false) }>log in</button>
+            <button onClick={login}>log in</button>
             </div>
             }
         </div>

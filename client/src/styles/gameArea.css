@@ -10,6 +10,7 @@
   justify-content: center;
 }
 .secondGuess {
+  min-width: 6em;
   opacity: .5;
 }
 .gameButtonsDiv button:hover:enabled {

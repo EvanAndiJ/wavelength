@@ -44,7 +44,7 @@ export default function Room() {
     const [showWin, setShowWin] = useState(false)
     const toggleWin = () => setShowWin(!showWin)
 
-    const [howTo, setHowTo] = useState(false)
+    const [howTo, setHowTo] = useState(true)
     const toggleHowTo = () => setHowTo(!howTo)
 
     const [guessLock, setGuessLock] = useState((game.playing && game.phase === 4) ? true : false)

@@ -1,9 +1,18 @@
 const endpoint = process.env.NODE_ENV === 'production' ?
   "https://wavelength-ej23-2dd5b345718d.herokuapp.com"
   : ''
-
+export async function adminLogin(pass) {
+  return fetch(`${endpoint}/api/adminLogin`, {
+    method: 'POST',
+    headers: {
+      'content-type':'application/json',
+    },
+    body: JSON.stringify({pass})
+  })
+.then(res => res.json())
+.catch(err => console.log(err))
+}
 export async function NewRoom (name) {
-  console.log(endpoint, 'delete me')
     return fetch(`${endpoint}/api/newRoom`, {
         method: 'POST',
         headers: {
@@ -81,6 +90,7 @@ export async function newGameChannel (roomCode) {
   .then(res => res.json())
   .catch(err => console.log(err))
 }
+
 async function reconnect (roomCode) {
   return fetch(`${endpoint}/api/reconnect`, {
       method: 'POST',
@@ -183,6 +193,7 @@ async function addClientId(roomCode, _id, clientId) {
   })
   .then(res => res.json())
 }
+
 
 const http = {
     newRoom: NewRoom,

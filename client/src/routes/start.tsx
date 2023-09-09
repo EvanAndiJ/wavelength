@@ -33,17 +33,21 @@ export default function Start() {
         nav(`/wavelength/room/${res.game.code}`)
     }
     async function joinRoom() {
-        // console.log('joinRoom')
-        const res = user ? await http.joinRoom(name, roomCode, user._id)
-                : await http.joinRoom(name, roomCode)
-        if (res.err) {
-            setErr(res.err)
+        if (roomCode === 'dashboard') {
+            nav('/wavelength/dashboard')
         } else {
-            // console.log(res)
-            setUser(res.user)
-            setTeams(res.game.teams)
-            setGame(res.game)
-            nav(`/wavelength/room/${res.game.code}`)
+            // console.log('joinRoom')
+            const res = user ? await http.joinRoom(name, roomCode, user._id)
+            : await http.joinRoom(name, roomCode)
+            if (res.err) {
+                setErr(res.err)
+            } else {
+                // console.log(res)
+                setUser(res.user)
+                setTeams(res.game.teams)
+                setGame(res.game)
+                nav(`/wavelength/room/${res.game.code}`)
+            }
         }
     }
     
@@ -61,7 +65,7 @@ export default function Start() {
                 value={name} onChange={onInput}/>
 
             <button className='startButtons gameButtons'
-                disabled={roomCode.length === 4 ?  false : true} onClick={joinRoom}>
+                disabled={roomCode.length >= 4 ?  false : true} onClick={joinRoom}>
                 Join</button>
             <button className='startButtons gameButtons'
                 disabled={name.length ?  false : true} onClick={newRoom}>

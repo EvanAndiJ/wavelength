@@ -58,11 +58,11 @@ function TeamBox ({context, game, user, team, onJoin}: TeamBoxProps) {
 
               <div className='score' >{score}</div>
               {playing ? 
-                (<div style={{ display:'flex', flexDirection:'column', width:'45%' }}>
+                (<div style={{ display:'flex', flexDirection:'column'}}>
                 <div className='joinButton '></div>
                 </div>)
 
-               : (<div style={{ display:'flex', flexDirection:'column', width:'45%' }}>
+               : (<div style={{ display:'flex', flexDirection:'column' }}>
 
                   <button onClick={()=>onJoin(team,0)} disabled={userContext.team === team ? true : false}
                       className={`join${team} joinButton gameButtons`}>join team</button>

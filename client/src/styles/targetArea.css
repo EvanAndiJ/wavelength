@@ -108,11 +108,12 @@
     height: 35px;
     width: 15px;
     margin-top: -25px;
+    background: transparent;
+    box-shadow: none;
     border-radius: 10px;
     border-bottom: 30px solid #da4e4e;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    /* box-shadow: 0 0 2px 2px rgba(92, 92, 92, 0.438); */
   }
   
   input[type="range"]::-moz-range-thumb {

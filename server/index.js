@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 require('./controllers/ably.controller')(app);
 require('./routes/room.routes')(app);
 require('./routes/game.routes')(app);
-// require('./controllers/ably.controller')(app, realtime)
+require('./routes/admin.routes')(app);
 
 app.get('*', (req, res) => {
   process.env.NODE_ENV === 'production'
