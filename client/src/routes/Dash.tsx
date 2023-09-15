@@ -1,7 +1,13 @@
 import React, { useState } from "react"
-import http, { adminLogin,
-    getUserChannels, removeUserChannel, getGameChannels, removeGameChannel,
-    newGameChannel, newUserChannel} from '../scripts/http'
+import http, { 
+    adminLogin,
+    getUserChannels, 
+    removeUserChannel, 
+    getGameChannels, 
+    removeGameChannel,
+    newGameChannel, 
+    newUserChannel, 
+    cleanupGameChannels } from '../scripts/http'
 
 export default function Dash() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -43,9 +49,15 @@ export default function Dash() {
         newGameChannel(newGameChan)
     }
     const removeGame = async (roomCode: string) => {
-        const newGames = await removeGameChannel(roomCode)
+        await removeGameChannel(roomCode)
         const newGames2 = games.filter(game => game != roomCode)
         setGames(newGames2)
+    }
+    const removeAllGames = async () => {
+        const clean = await cleanupGameChannels()
+        if (clean) {
+            setGames([])
+        }
     }
 
     const login = async () => {
@@ -60,6 +72,8 @@ export default function Dash() {
             Dashbaord
             {loggedIn ?
             <div style={{display:'flex', flexDirection:'column'}}>
+
+                <button onClick={removeAllGames}>cleanup Games</button>
 
                 <div style={{ margin: '1em'}}>
                     <button onClick={getUsers}>userChannels</button>

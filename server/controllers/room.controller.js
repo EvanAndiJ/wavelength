@@ -68,19 +68,10 @@ exports.joinRoom = async (req, res) => {
   // console.log('post save', game)
   return res.status(200).send({ game, user })
 }
-exports.closeRoom = async (req, res) => {
-  // const room = await Room.findOne({ code: req.body.roomCode })
-  // if (!room) { return res.status(401).send({ message: `That room doesn't exist?` }) }
-  const game = await Game.findOne({ code: req.body.roomCode })
-  if (!game) { return res.status(401).send({ message: `That room doesn't exist?` }) }
-  // if (room) {
-  // await Room.deleteOne({ code: req.body.roomCode })
-  await Game.deleteOne({ code: req.body.roomCode })
-  return res.status(200).send({message:'room closed'})
-  // } else {
-  //   return res.status(401).send({ message: `That room doesn't exist?` })
-  // }
-
+exports.closeRoom = async (roomCode) => {
+  console.log('closeRoom')
+  const game = await Game.findOneAndDelete({ code: roomCode })
+  console.log('findoneDelete', game)
 };
 exports.joinTeamOld = async (req, res)  => {
   const user = await User.findById(req.body.user)
@@ -178,6 +169,7 @@ exports.getRoom = async (roomCode) => {
   return game ? game : null
 }
 exports.userLeaving = async (id) => {
+  console.log('userLeaving func')
   const user = await User.findOne({ably: id})
   if (!user) {return {}}
 

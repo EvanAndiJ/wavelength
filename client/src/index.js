@@ -1,5 +1,4 @@
 import './index.css';
-// import 'dotenv'
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -22,6 +21,7 @@ root.render(
         </Route>
         <Route path='dashboard' element={<Dash/>}/>
       </Route>
+        <Route path='dashboard' element={<Dash/>}/>
 
       <Route path="*" element={<h1>Oops, nothing here</h1>} />
     </Routes>

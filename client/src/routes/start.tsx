@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import http, {NewRoom, newGameChannel} from '../scripts/http'
 import useUser from "../hooks/useUser"
@@ -7,12 +7,27 @@ import useGame from "../hooks/useGame"
 
 export default function Start() {
     const nav = useNavigate()
-    const {user, setUser} = useUser()
-    const {teams, setTeams} = useTeams()
-    const {game, setGame} = useGame()
+    const {user, setUser, clearUser} = useUser()
+    const {teams, setTeams, clearTeams} = useTeams()
+    const {game, setGame, clearGame} = useGame()
     const [roomCode, setRoomCode] = useState(user ? user.room : '')
     const [name, setName] = useState(user ? user.name : '')
     const [err, setErr] = useState('')
+
+    useEffect(()=>{
+        if (user && game) {
+            if (Date.now() - Date.parse(game.dateUpdated) > 3600000) {
+                clearUser()
+                clearGame()
+                clearTeams()
+                setRoomCode('')
+                setName('')
+                if (localStorage.getItem('ably-transport-preference')) {
+                    localStorage.removeItem('ably-transport-preference')
+                }
+            }
+        }
+    },[])
 
     const onInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const input = event.target.name

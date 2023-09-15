@@ -77,6 +77,17 @@ export async function removeGameChannel (roomCode) {
       })
     .then(res => res.json())
 }
+export async function cleanupGameChannels () {
+    return fetch(`${endpoint}/admin/cleanupGameChannels`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'content-type':'application/json',
+        },
+        body: JSON.stringify({})
+      })
+    .then(res => res.json())
+}
 export async function newGameChannel (roomCode) {
   return fetch(`${endpoint}/api/newGameChannel`, {
       method: 'POST',

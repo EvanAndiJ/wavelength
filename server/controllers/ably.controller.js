@@ -64,6 +64,21 @@ let range = []
 // exports.gameChannels = (req, res) => {
 //   return res.status(200).send({gameChannels: Object.keys(gameChannels)});
 // };
+async function cleanupRoom(roomCode) {
+  console.log('cleanup')
+  const game = await roomCon.getRoom(roomCode)
+  if (game) {
+    if (game.totalUsers < 1 && Date.now() - Date.parse(game.dateUpdated) > 900000) {
+      console.log('beleted')
+      gameChannels[roomCode].unsubscribe()
+      delete gameChannels[roomCode]
+      roomCon.closeRoom(roomCode)
+    } else {
+      console.log('they back')
+    }
+  }
+}
+
 exports.subscribeToPlayerInput = (userChannel, gameChannel, userId) => {
   // console.log('subPlayerInput')
   userChannel.subscribe('start', (update) =>  { 
@@ -222,6 +237,22 @@ exports.newGameChannel = async (roomCode) => {
       userChannels[leavingUser].unsubscribe()
       delete userChannels[leavingUser]
     }
+    if (game.totalUsers === 0) { 
+      setTimeout(async () => {
+        console.log('cleanup')
+        const roomCode = game.code
+        const currentGame = await roomCon.getRoom(roomCode)
+        if (currentGame) {
+          if (currentGame.totalUsers < 1 && Date.now() - Date.parse(currentGame.dateUpdated) > 900000) {
+            gameChannels[roomCode].unsubscribe()
+            delete gameChannels[roomCode]
+            roomCon.closeRoom(roomCode)
+          } else {
+            console.log('users returned')
+          }
+        }
+      }, 300000) //5 minutes
+    }
     newChannel.publish('gameState', game);
   });
   newChannel.subscribe('target', (update) =>  { 
@@ -265,9 +296,7 @@ module.exports = function(app) {
       });
   });
 
-  realtime.connection.once("connected", () => {
-    console.log('////Realtime Connect/////')
-  });
+  realtime.connection.once("connected", () => { console.log('////Realtime Connect/////') });
   
   app.post('/api/reconnect', async (req, res) => {
     const roomCode = req.body.roomCode
@@ -305,6 +334,17 @@ module.exports = function(app) {
     delete gameChannels[roomCode]
     return res.status(200).send({gameChannels: Object.keys(gameChannels)});
   });
+  app.post("/admin/cleanupGameChannels", (req, res) => {
+    Object.keys(gameChannels).forEach(game => {
+      gameChannels[game].unsubscribe()
+      delete gameChannels[game]
+      roomCon.closeRoom(game)
+    })
+    return res.status(200).send({cleaned: true});
+  });
+  async function cleanupAll() {
+    
+  }
 
   // function publishGame () {
   //   gameChannel.publish('gameState', {

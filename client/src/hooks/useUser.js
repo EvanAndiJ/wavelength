@@ -23,7 +23,7 @@ const useUser = () => {
         setUser(userInfo)
     }
 
-    const signOut = () => {
+    const clearUser = () => {
         localStorage.removeItem('wavelengthUser')
         setUser(null)
         // localStorage.removeItem('token')
@@ -33,7 +33,7 @@ const useUser = () => {
     return {
         user,
         setUser: saveUser,
-        // signOutUser: signOut
+        clearUser,
     }
 }
 

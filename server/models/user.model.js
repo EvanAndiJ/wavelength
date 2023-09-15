@@ -28,15 +28,3 @@ const userSchema = new Schema({
   },
 })
 module.exports = model('User', userSchema)
-
-// module.exports = (sequelize, Sequelize) => {a
-//     const User = sequelize.define("users", {
-//       name: {
-//         type: Sequelize.STRING
-//       },
-//       roomId: {
-//         type: Sequelize.STRING,
-//       }
-//     });
-//     return User;
-//   };
