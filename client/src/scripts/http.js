@@ -32,7 +32,6 @@ export async function getUserChannels () {
         },
       })
     .then(res => res.json())
-    // .then(res => res)
 }
 export async function newUserChannel (id) {
   return fetch(`${endpoint}/api/newGameChannel`, {
@@ -94,7 +93,6 @@ export async function newGameChannel (roomCode) {
       mode: 'cors',
       headers: {
         'content-type':'application/json',
-        // 'Access-Control-Allow-Origin': endpoint
       },
       body: JSON.stringify({roomCode})
     })

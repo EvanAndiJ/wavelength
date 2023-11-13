@@ -15,7 +15,6 @@ function TargetArea({guessLock, updateGuess, screen, toggleScreen}: TargetAreaPr
     const range = game.range[0]
     const guess = game.guess
     const [slider, setSlider] = useState(game.guess)
-    // const user = context.user
     const screenStyle = screen ? {width:'102%'} : {width:'0%'}
 
     const [screenWidth, setScreenWidth] = useState({width:'0%'})
@@ -34,7 +33,6 @@ function TargetArea({guessLock, updateGuess, screen, toggleScreen}: TargetAreaPr
         updateGuess(event.currentTarget.value)
     }
     return (<>
-    {/* <button onClick={()=>console.log(screen)}>screen</button> */}
         <div className='targetArea'>
             
             <div className='targetWindow'>
@@ -49,7 +47,6 @@ function TargetArea({guessLock, updateGuess, screen, toggleScreen}: TargetAreaPr
 
                 <div id='screen' className='screen' style={screen ? {width:'102%'} : {width:'0%'}}></div>
 
-                {/* <div id='guessLine' className='guessLine' style={guessLine}></div> */}
             </div>
 
             <input type="range" id='targetSlider' disabled={guessLock}

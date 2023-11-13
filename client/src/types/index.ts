@@ -48,8 +48,6 @@ export interface TeamBoxProps extends PlayerAreaProps{
 }
 
 export interface TargetAreaProps {
-    // game: Games
-    // context?: GameContext,
     guessLock: boolean,
     updateGuess: (newGuess: string)=>void,
     screen: boolean,
@@ -57,10 +55,6 @@ export interface TargetAreaProps {
 }
 
 export interface GameAreaProps {
-    // guess: number,
-    // clue: string,
-    // started: boolean,
-    // showButton: boolean,
     isDraw: boolean,
     setClue: (clue: string) => void,
     onDraw: ()=>void,

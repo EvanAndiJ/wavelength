@@ -2,3 +2,6 @@ node_modules/
 .env
 /logs
 .gitignore
+/client/ref
+.gitignore
+client/.gitignore

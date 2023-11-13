@@ -1,9 +1,4 @@
 const { Schema, model } = require('mongoose');
-
-// module.exports = () => {
-//   const User = model('User', userSchema)
-//   return User;
-// }
 const userSchema = new Schema({
   name: {
     type: String,

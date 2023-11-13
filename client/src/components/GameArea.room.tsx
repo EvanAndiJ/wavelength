@@ -8,9 +8,6 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
   const game = useContext(GameContext)
   const user = useContext(UserContext)
 
-  // const showPsychButton = ( game.playing && game.phase === 1 && game.turn === user.team && user.psych )
-  // const showPlayerButton = ( game.playing && game.phase === 2 && game.turn === user.team && !user.psych )
-  // const isSecondGuess = ( game.playing && game.phase === 3 && game.turn !== user.team )
   const showPsychButton = ( game.playing && game.phase === 1 )
   const showPlayerButton = ( game.playing && game.phase === 2  )
   const isSecondGuess = ( game.playing && game.phase === 3 )
@@ -38,7 +35,6 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
           onClick={overUnder} className={game.secondGuess < 1 ? 'gameButtons secondGuess glow' : 'gameButtons secondGuess'}> 
           &#10096; Left </button>
           
-        {/* <div style={{fontSize: '.7em'}}> Second Guess </div> */}
         {!game.playing &&
           <button onClick={gameToggle} className="gameButtons mainButton"
           disabled={user.name === game.host ? false : true}> 

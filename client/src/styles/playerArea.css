@@ -23,7 +23,6 @@
     align-items: center;
   }
   .joinButton {
-    /* color: var(--lightText); */
     height: 2em;
     width: 7em;
     margin: .25em;
@@ -43,7 +42,6 @@
     background-color: #00000000;
     color: var(--mainBorderColor);
     font-weight: bold;
-    /* border-radius: 25px; */
   }
   .joinSpacer {
     width: 80%;
@@ -53,19 +51,16 @@
   }
   .teamList {
     color: var(--mainBG);
-    /* width: 100%; */
     min-height: 8.3em;
     margin: 10px 5px;
     padding: .25em .5em;
     background-color: var(--lightBG);
     border-radius: 15px;
-    /* font-size: 2.75em; */
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     text-align: center;
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-start; */
     align-items: flex-start;
   }
   #t1Score, #t2Score {
@@ -82,14 +77,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    /* font-size: 3.753em; */
     color: #1a706c;
     text-shadow: 0 0 2px black;
     padding: 2px;
   }
   .options button {
-    /* height: 2.75em; */
-    /* min-width: 8.3em; */
     font-weight:bold;
     color: var(--mainBorderColor);
     border-radius: 15px;

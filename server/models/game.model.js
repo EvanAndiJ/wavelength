@@ -47,7 +47,6 @@ const gameSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  //why is mongoose putting the number in an array too??
   range: [ [String, String], Number], //the current range and it's index in master list 
   discard: {
     type: [Number],

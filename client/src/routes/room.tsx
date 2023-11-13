@@ -53,9 +53,7 @@ export default function Room() {
     const realtime = configureAbly({ authUrl: authURL });
 
     realtime.connection.once('connected', async ()=> {
-        // console.log('connected')
         if (user.ably !== realtime.auth.clientId) {
-            // console.log('addClientId')
             const res = await http.addClientId(roomCode, user._id, realtime.auth.clientId)
             setUser(res.user)
         }
@@ -69,12 +67,9 @@ export default function Room() {
                 setScreen(data.screen)
             }
             setGame(data)
-            // setTeams(update.data.teams)
             if (data.phase > 2) { setGuessLock(true) }
         }
         if (post === 'gameStart') {
-            // console.log('start', data)
-            // const newGame = update.data
             setGame(data);
             setGuessLock(data.teams[2].includes(user.name) ? true : false)
         }
@@ -83,7 +78,6 @@ export default function Room() {
             setGuessLock(false)
         }
         if (post === 'nextTurn') {
-            // console.log('next', data)
             setGame(update.data)
             setScreen(false)
             if (update.data.score[0] >= 10 || update.data.score[1] >= 10) {
@@ -95,14 +89,11 @@ export default function Room() {
             }
         }
         if (post === 'teams') {
-            // console.log('teams')
             setTeams(update.data)
             game.teams = update.data
             setGame(game)
         }
         if (post === 'psychs') {
-            // console.log('psychs')
-            // const newGame = {...game}
             game.psych = update.data
             setGame(game)
         }
@@ -115,52 +106,10 @@ export default function Room() {
         }
         if (post === 'closeScreen') {
             setScreen(true)
-            // setIsDraw(false)
         }
         if (post === 'err') {
             setErr(data)
         }
-        // switch(post) { 
-        //     case 'gameState':
-        //         if (!update.data.playing) {
-        //             setScreen(update.data.screen)
-        //         }
-        //         setGame(update.data)
-        //         // setTeams(update.data.teams)
-        //         if (update.data.phase > 2) { setGuessLock(true) }
-        //         break;
-        //     case 'gameStart':
-        //         const newGame = update.data
-        //         // setTeams(newGame.teams);
-        //         setGame(newGame);
-        //         // setScreen(update.data.psych[0] === user.name ? false : true)
-        //         setGuessLock(user.team === 2 ? true : false)
-        //         break;
-        //     case 'nextTurn':
-        //         const newGame = update.data
-        //         setGame(newGame)
-        //         setScreen(false)
-        //         setGuessLock(true)
-        //         break;
-        //     case 'teams':
-        //         // console.log('teams')
-        //         setTeams(update.data)
-        //         game.teams = update.data
-        //         setGame(game)
-        //         break;
-        //     case 'psychs':
-        //         // console.log('psychs')
-        //         // const newGame = {...game}
-        //         game.psych = update.data
-        //         setGame(game)
-        //         break;
-        //     case 'drawnRanges':
-        //         setDrawn(update.data)
-        //         break;
-        //     case'closeScreen':
-        //         setScreen(true)
-        //         break;
-        // }
     })
     const [presence, updatePresence] = usePresence(`gameRoom${roomCode}`, {name: user.name, roomCode})
     const [userChannel] = useChannel(`userChannel-${user.ably ? user.ably : realtime.auth.clientId}`, 
@@ -185,11 +134,7 @@ export default function Room() {
     // Start and End the game 
     function gameToggle () {
         if (!game.playing) {
-            // if (game.totalUsers >= 4) {
-                userChannel.publish('start', roomCode)
-            // } else {
-            //     setErr('Not Enough Players')
-            // }
+            userChannel.publish('start', roomCode)
         } else {
             userChannel.publish('stop', roomCode)
         }
@@ -244,7 +189,6 @@ export default function Room() {
         userChannel.publish('unsub', 'unsub')
     }
     function reconnectUser() {
-        //LOOK INTO THIS ERRor: Mismatched clientId for existing connection 
         gameRoom.publish('resub', {id: userChannel.name, roomCode})
     }
     function reconnectGame() {
@@ -254,29 +198,13 @@ export default function Room() {
         userChannel.publish('gcClean', roomCode)
     }
 
-    // useEffect(()=>{
-    //     console.log('room effect')
-    // })
 
         
     return (
         <div id='gameRoom'>
-            {/* <Menu 
-            playing={game.playing} 
-            howTo={toggleHowTo} 
-            gameToggle={gameToggle} 
-            reconnectUser={reconnectUser} 
-            reconnectGame={reconnectGame}
-            drawRanges={drawRanges}
-            /> */}
-
-            {/* <button onClick={()=>console.log(gameRoom)}>game</button> 
-            <button onClick={()=>console.log(userChannel)}>userChannel</button> */}
             <div className='topbar'>
                 <div>Game Room {roomCode}</div>
                 <div>
-                    {/* <button className='topbarButton' onClick={toggleHowTo}><img src={howToIcon}/></button>
-                    <button className='topbarButton' onClick={gameToggle}><img src={powerIcon}/></button>    */}
                     <button className='topbarButton' onClick={toggleHowTo}>
                         <img src='../question-circle-white.svg' alt='How To Play'/></button>
                     <button className='topbarButton' onClick={game.host === user.name ? gameToggle : ()=>{}}>

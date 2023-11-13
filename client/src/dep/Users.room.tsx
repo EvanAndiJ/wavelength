@@ -6,7 +6,6 @@ function Users({users}) {
         <div id='users' style={{display:'flex',justifyContent:'center'}}>
             <button onClick={()=>console.log(users)}>users</button>
             
-            {/* {users.all.map(user => <p key={user._id}>{user.name}</p>)} */}
         </div>
     )
 }

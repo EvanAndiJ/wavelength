@@ -52,7 +52,6 @@ const roomSchema = new Schema({
       type: Boolean,
       default: false,
     },
-    //why are you putting the number in an array too??
     range: [ [String, String], Number], //the current range and it's index in master list 
     discard: [Number],  //index numbers of ranges that have already been chosen
     psych: { //the current psych from each team

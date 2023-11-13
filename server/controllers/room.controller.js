@@ -3,7 +3,6 @@ const Room = db.room
 const User = db.user
 const Game = db.game
 const ablyCon = require('./ably.controller')
-// import { newGameChannel } from "./ably.controller";
 
 exports.newRoom = async (req, res) => {
   console.log('newRoom')
@@ -13,8 +12,6 @@ exports.newRoom = async (req, res) => {
     for (let i=0; i<4; i++) {
       roomCode += abc[Math.floor(Math.random() * abc.length)] 
     }
-    // const room = await Room.findOne({code: roomCode})
-    // if (room) { roomCode = makeRoomCode() } 
     const game = await Game.findOne({code: roomCode})
     if (game) { roomCode = makeRoomCode() } 
     return roomCode.toUpperCase()
@@ -36,15 +33,12 @@ exports.joinRoom = async (req, res) => {
   const userId = req.body.userId
   const name = req.body.name
 
-  // console.log('join room', roomCode, userId, name)
   
   const game = await Game.findOne({ code: roomCode })
   if (!game) { return res.status(401).send({ err: 'Room Not Found' }) }
-  // console.log('jr game', game)
   
   let user = !userId ? await User.create({name: name, room: roomCode}) : await User.findById(userId) 
   if (!user) { return res.status(401).send({ err: 'User not found'}) }
-  // console.log('jr user', user)
  
   if (userId === null && game.users.includes(name)) {
       return res.status(401).send({err: 'Name Taken'}) 
@@ -55,17 +49,14 @@ exports.joinRoom = async (req, res) => {
     await user.save()
   }
   if (!game.teams[user.team].includes(user.name)) { 
-    // console.log('fucking please', game.teams[user.team]); 
     const newTeam = game.teams[user.team]
     newTeam.push(user.name)
     game.teams.splice(user.team,1,newTeam)
     await game.save()
-    // console.log('fucking why', game.teams[user.team]); 
   }
   if (!game.users.includes(name)) { game.users.push( user.name ) }
   game.totalUsers++
   await game.save()
-  // console.log('post save', game)
   return res.status(200).send({ game, user })
 }
 exports.closeRoom = async (roomCode) => {
@@ -73,38 +64,8 @@ exports.closeRoom = async (roomCode) => {
   const game = await Game.findOneAndDelete({ code: roomCode })
   console.log('findoneDelete', game)
 };
-exports.joinTeamOld = async (req, res)  => {
-  const user = await User.findById(req.body.user)
-  const roomCode = user.room.toUpperCase()
-  // const room = await Room.findOne({ code: roomCode })
-  const game = await Game.findOne({ code: roomCode })
-  const prevTeam = user.team
-  const team = req.body.team
-  if (prevTeam != team) {
-    // room.users[team].push(user.name)
-    game.teams[team].push(user.name)
-    if (prevTeam === 0) {
-      // room.users.all = room.users.all.filter( 
-      //   u => u !== user.name ) 
-    }
-    else { 
-      // room.users[prevTeam] = await room.users[prevTeam].filter( 
-      //   u => u !== user.name )
-    }
-    user.team = team
-  }
-  if (req.body.psych) {
-    // room.game.psych[team] = user.name
-    user.psych = true
-  }
-  await user.save()
-  // await room.save()
-
-  return res.status(200).send({teams: room.users})
-}
 
 exports.joinTeam = async ({ _id, team, psych})  => {
-  // console.log('joining')
   const user = await User.findById(_id)
   const roomCode = user.room.toUpperCase()
   const game = await Game.findOne({ code: roomCode })
@@ -119,7 +80,6 @@ exports.joinTeam = async ({ _id, team, psych})  => {
         u => u !== user.name ) 
     }
     else { 
-      //if user was the psych on old team
       if (game.psych[prevTeam-1] === user.name) {
         game.psych[prevTeam-1] = "";
         user.psych = false;
@@ -156,12 +116,6 @@ exports.roomUsers = async (req, res) => {
   const game = Game.findOne({ code: roomCode })
   if (!game) { return res.status(401).send({ noRoom: true})}
   return res.status(200).send({ users: game.teams})
-  // } else {
-  //   return res.status(401).send({ noRoom: true})
-  // }
-  // })
-  // User.findAll({where: {roomId: req.body.roomCode } })
-  // .then(users => res.status(200).send({users}))
 }
 
 exports.getRoom = async (roomCode) => {
@@ -184,7 +138,6 @@ exports.userLeaving = async (id) => {
   }
 }
 exports.addClientId = async (req, res) => {
-// = async (roomCode, useId, clientId) => {
   const id = req.body._id
   const user = await User.findById(id)
   user.ably = req.body.clientId

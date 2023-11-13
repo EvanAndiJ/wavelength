@@ -25,15 +25,6 @@ function Menu ({playing, gameToggle, howTo, reconnectGame, reconnectUser, drawRa
                 <Dropdown.Item as="span" onClick={howTo}>
                     How To Play</Dropdown.Item>
 
-                {/* <Dropdown.Item as="span" onClick={drawRanges}>
-                    draw</Dropdown.Item>
-                    
-                <Dropdown.Item as="span" onClick={reconnectGame}>
-                    Reconnect Game </Dropdown.Item>
-
-                <Dropdown.Item as="span" onClick={reconnectUser}>
-                    Reconnect User </Dropdown.Item> */}
-
                     
             </DropdownButton>
         </div>

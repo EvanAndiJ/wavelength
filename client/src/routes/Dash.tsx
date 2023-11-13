@@ -37,7 +37,6 @@ export default function Dash() {
     }
     const removeUser = async (id: string) => {
         const newUsers = await removeUserChannel(id)
-        // const newUsers = users.filter(user => user != id)
         setUsers(newUsers)
     }
     const getGames = async () => {

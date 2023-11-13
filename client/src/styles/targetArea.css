@@ -59,12 +59,9 @@
     left: -1%;
     margin: auto;
     height: 100%;
-    /* width: 0%; */
-    /* background-color: var(--mainButton); */
     background: var(--rangeGradient);
     border-radius: 15px;
     transition: width 0.5s ease-in;
-    /* border: 2px solid green; */
     
   }
   .guessLine {
@@ -81,7 +78,6 @@
   #targetSlider {
     z-index: 5;
     width: 90%;
-    /* margin: auto; */
     margin-top: 10px;
     transition: left 0.5s ease-in;
   }
@@ -136,7 +132,6 @@
     display: flex;
     justify-content: center;
     background: var(--rangeGradient);
-    /* box-shadow: var(--mainShadow); */
     font-family: Trebuchet MS, sans-serif;
     font-size: 1.75em;
     font-weight: bold;
@@ -148,7 +143,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* color: #882323; */
     padding: 2%;
   }
   .rRight {
@@ -157,5 +151,4 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* color: #236a3b; */
   }

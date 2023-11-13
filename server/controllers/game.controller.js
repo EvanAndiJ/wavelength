@@ -85,7 +85,6 @@ exports.authUser = async (req, res) => {
     if (err) {
       res.status(500).send("Error requesting token: " + JSON.stringify(err));
     } else {
-      // res.setHeader("Content-Type", "application/json");
       res.send(JSON.stringify(tokenRequest));
     }
   });

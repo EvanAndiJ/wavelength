@@ -174,12 +174,6 @@
   }
   
   @media only screen and (max-width: 750px) {
-    /* .clueArea {
-      min-width: 11em;
-    } */
-    /* .clue {
-      width: 3.25em;
-    } */
     #clueSpan {
       font-size: .37em;
     }
@@ -189,27 +183,15 @@
     label.clueLine {
       font-size: 1.5em;
     }
-    /*.gameArea button {
-       min-width: 3.5em;
-      max-width: 3.5em;
-      height: 6em; 
-    }*/
     .lightBox {
       margin: auto 2px;
     }
-    /* .greenlight, .redlight {
-      width: 2em;
-    } */
     .teamName {
       font-size: .7em;
     }
     .players {
       display: none;
     }
-    /* .score {
-      width: 4em;
-      margin: 10px 2px;
-    } */
     .options button {
       border: 2px solid #278884;
       min-width: 5em;

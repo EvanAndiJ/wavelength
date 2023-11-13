@@ -41,7 +41,6 @@ export default function Start() {
     }
     async function newRoom () {
         const res = await NewRoom(name)
-        // newGameChannel(res.game.code)
         setUser(res.creator)
         setTeams(res.game.teams)
         setGame(res.game)
@@ -51,13 +50,11 @@ export default function Start() {
         if (roomCode === 'dashboard') {
             nav('/wavelength/dashboard')
         } else {
-            // console.log('joinRoom')
             const res = user ? await http.joinRoom(name, roomCode, user._id)
             : await http.joinRoom(name, roomCode)
             if (res.err) {
                 setErr(res.err)
             } else {
-                // console.log(res)
                 setUser(res.user)
                 setTeams(res.game.teams)
                 setGame(res.game)
@@ -68,8 +65,6 @@ export default function Start() {
     
     return (
         <div className='startMenu'>
-            {/* <button onClick={()=>console.log(user)}>user</button> */}
-            {/* <button onClick={()=>console.log(name, roomCode)}>start page</button> */}
             <label>Room Code: <span>{err}</span></label>
             <input name='room' type='text' 
                 placeholder="Enter 4-Digit Code"

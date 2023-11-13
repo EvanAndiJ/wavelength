@@ -20,7 +20,6 @@ function DrawRanges({ranges, choose, hide}) {
                         <div>{range[0][0]}</div> <div>{range[0][1]}</div>
                     </button>
                     
-                    // : <div style={{backgroundColor:"red"}}>fuck</div>
                 )}
             </Modal.Body>
         </Modal>
