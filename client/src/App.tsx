@@ -1,7 +1,6 @@
 import './App.css';
 import React, {useState} from 'react';
 import { Outlet, useParams } from 'react-router-dom';
-//@ts-expect-error
 import { ColorContext } from './context/Contexts.ts';
 
 export default function App() {
