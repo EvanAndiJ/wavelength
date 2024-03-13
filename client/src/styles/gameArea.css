@@ -85,116 +85,115 @@
     top: 0;
     
   }
-  .modalArea {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 15% auto; 
-    background-color:  #37c7c0;
-    padding: 10px;
-    width: 460px;
-    font-family: Trebuchet MS, sans-serif;
-    font-weight: bold;
-    text-align: center;
-    border: 3px solid #2da59f;
-    box-shadow: 0 0 10px 5px black;
+.modalArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15% auto; 
+  background-color:  #37c7c0;
+  padding: 10px;
+  width: 460px;
+  font-family: Trebuchet MS, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  box-shadow: 0 0 10px 5px black;
+}
+.modalArea label {
+  border: 0;
+}
+.totLine {
+  width: 100%;
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 1.65em;
+  font-weight: bold;
+  border: 3px solid #2da59f;
+  margin: 1%;
+  box-shadow: 0 0 10px black;
+}
+.totLine:hover {
+  box-shadow: 0 0 10px green;
+}
+#modalHow {
+  display: none;
+  position: relative;
+  width: 92%;
+  text-align: left;
+}
+#modalHow * {
+  margin: .25em;
+}
+#modalTots {
+  display: none;
+}
+#modalClue {
+  display: none;
+  margin: 7em auto;
+}
+#addPlayer {
+  display: none;
+}
+#removePlayer {
+  display: none;
+}
+#modalWin {
+  display: none;
+}
+#optionsBox {
+  color: var(--mainBorderColor);
+  display:none;
+  position: relative;
+}
+.optButton {
+  font-weight:bold;
+  color: var(--mainBorderColor);
+  min-width: 8.3em;
+  border-radius: 15px;
+  background-color: #37c7c0;
+  border: 3px solid #278884;
+  box-shadow: 1px 1px 3px 0 gray;
+  margin: 3px;
+  width: 12em;
+}
+.closeButt {
+  position: absolute;
+  right: 1em;
+  transform: scale(1.5);
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+.clueLine {
+  display: flex; 
+  font-family: Trebuchet MS, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  border: 3px solid #2da59f;
+  margin: 1%;
+}
+
+@media only screen and (max-width: 750px) {
+  #clueSpan {
+    font-size: .37em;
   }
-  .modalArea label {
-    border: 0;
+  #newClue {
+    width: 90%;
   }
-  .totLine {
-    width: 100%;
-    display: flex; 
-    font-family: Trebuchet MS, sans-serif;
-    font-size: 1.65em;
-    font-weight: bold;
-    border: 3px solid #2da59f;
-    margin: 1%;
-    box-shadow: 0 0 10px black;
+  label.clueLine {
+    font-size: 1.5em;
   }
-  .totLine:hover {
-    box-shadow: 0 0 10px green;
+  .lightBox {
+    margin: auto 2px;
   }
-  #modalHow {
+  .teamName {
+    font-size: .7em;
+  }
+  .players {
     display: none;
-    position: relative;
-    width: 92%;
-    text-align: left;
   }
-  #modalHow * {
-    margin: .25em;
+  .options button {
+    border: 2px solid #278884;
+    min-width: 5em;
   }
-  #modalTots {
-    display: none;
-  }
-  #modalClue {
-    display: none;
-    margin: 7em auto;
-  }
-  #addPlayer {
-    display: none;
-  }
-  #removePlayer {
-    display: none;
-  }
-  #modalWin {
-    display: none;
-  }
-  #optionsBox {
-    color: var(--mainBorderColor);
-    display:none;
-    position: relative;
-  }
-  .optButton {
-    font-weight:bold;
-    color: var(--mainBorderColor);
-    min-width: 8.3em;
-    border-radius: 15px;
-    background-color: #37c7c0;
-    border: 3px solid #278884;
-    box-shadow: 1px 1px 3px 0 gray;
-    margin: 3px;
-    width: 12em;
-  }
-  .closeButt {
-    position: absolute;
-    right: 1em;
-    transform: scale(1.5);
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-  }
-  .clueLine {
-    display: flex; 
-    font-family: Trebuchet MS, sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    border: 3px solid #2da59f;
-    margin: 1%;
-  }
-  
-  @media only screen and (max-width: 750px) {
-    #clueSpan {
-      font-size: .37em;
-    }
-    #newClue {
-      width: 90%;
-    }
-    label.clueLine {
-      font-size: 1.5em;
-    }
-    .lightBox {
-      margin: auto 2px;
-    }
-    .teamName {
-      font-size: .7em;
-    }
-    .players {
-      display: none;
-    }
-    .options button {
-      border: 2px solid #278884;
-      min-width: 5em;
-    }
-  }
-  
+}

@@ -137,6 +137,8 @@
     font-weight: bold;
     text-align: center;
     text-shadow: var(--textShadow);
+    border-radius: 3rem;
+    box-shadow: 0 0 10px 8px rgba(255, 255, 255, 0.247) inset;
   }
   .rLeft {
     width: 50%;

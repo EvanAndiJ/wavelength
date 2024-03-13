@@ -15,13 +15,14 @@ root.render(
     <Routes>
       <Route path="/wavelength" element={<App />} >
 
-        <Route index element={<Start />}/>
-        <Route path="room">
+        <Route index element={<Room />}/>
+        {/* <Route index element={<Start />}/> */}
+        {/* <Route path="room">
           <Route path=":roomCode" element={<Room/>}/>
         </Route>
-        <Route path='dashboard' element={<Dash/>}/>
+        <Route path='dashboard' element={<Dash/>}/> */}
       </Route>
-        <Route path='dashboard' element={<Dash/>}/>
+        {/* <Route path='dashboard' element={<Dash/>}/> */}
 
       <Route path="*" element={<h1>Oops, nothing here</h1>} />
     </Routes>

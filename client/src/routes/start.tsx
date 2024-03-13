@@ -5,6 +5,7 @@ import useUser from "../hooks/useUser"
 import useTeams from "../hooks/useTeams"
 import useGame from "../hooks/useGame"
 
+
 export default function Start() {
     const nav = useNavigate()
     const {user, setUser, clearUser} = useUser()

@@ -133,15 +133,17 @@
     justify-content: center;
     align-items: center;
     opacity: .5;
-    box-shadow: inset 0 0 3px black;
+    box-shadow: inset 0 0 3px 3px black;
   }
   .redlight {
     color: var(--redtxt);
     background-color: var(--redbg);
   }
   .greenlight {
-    color: var(--greentxt);
+    color: var(--lightText);
+    text-shadow: var(--textShadow);
     background-color: var(--greenbg);
+    box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.342) inset;
   }
   #t1g {
     background-color: var(--rangeLeft);
@@ -151,6 +153,6 @@
   }
   .turn {
     opacity: 1;
-    box-shadow: 0 0 5px rgb(104, 104, 104);
+    
   }
   

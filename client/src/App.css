@@ -11,7 +11,7 @@
   --mainButton: #dddddd;
   --mainTitle: #97b3ff;
   --mainShadow: 0 0 5px 2px #1e435e;
-  --textShadow: 0px 0px 4px gray;
+  --textShadow: 0 0 10px black;
 
   --rangeLeft: #97b3ff;
   --rangeRight: #dbb971;
@@ -77,6 +77,7 @@
   font-weight: bold;
   color: var(--lightText);
   text-shadow: var(--textShadow);
+  box-shadow: 0 0 10px 8px rgb(153, 153, 153) inset;
 }
 .mainButton:disabled {
   opacity: .5;

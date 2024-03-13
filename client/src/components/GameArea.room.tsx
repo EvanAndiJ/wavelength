@@ -36,24 +36,27 @@ function GameArea({isDraw, setClue, onDraw, submitGuess, changeSecondGuess, subm
           &#10096; Left </button>
           
         {!game.playing &&
-          <button onClick={gameToggle} className="gameButtons mainButton"
-          disabled={user.name === game.host ? false : true}> 
+          <button onClick={gameToggle} className="gameButtons mainButton"> 
             START
           </button>
         }
 
         {showPsychButton && <>
           {isDraw ? 
-            <button onClick={onDraw} className="gameButtons mainButton" disabled={(!user.psych || game.turn != user.team)}>
+            <button onClick={onDraw} className="gameButtons mainButton" >
               Draw</button>
-          : <button onClick={onSubmitClue} className="gameButtons mainButton"  disabled={(!user.psych || game.turn != user.team)}>
+          // : <button onClick={onSubmitClue} className="gameButtons mainButton"  disabled={(!user.psych || game.turn != user.team)}>
+          : <button onClick={onSubmitClue} className="gameButtons mainButton" >
               Set Clue</button>}
         </>}
 
         {showPlayerButton && 
-        <button onClick={submitGuess} className="gameButtons mainButton" disabled={(user.psych || game.turn != user.team)}>Set Guess</button>}
+        // <button onClick={submitGuess} className="gameButtons mainButton" disabled={(user.psych || game.turn != user.team)}>
+        <button onClick={submitGuess} className="gameButtons mainButton" >
+          Set Guess</button>}
         {isSecondGuess && 
-        <button onClick={submitSecondGuess} className="gameButtons mainButton" disabled={game.turn === user.team}>Second Guess</button>}
+        <button onClick={submitSecondGuess} className="gameButtons mainButton">
+          Second Guess</button>}
         
 
         <button name='r' id='over' disabled={!isSecondGuess}

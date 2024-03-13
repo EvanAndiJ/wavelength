@@ -1,24 +1,28 @@
 import { useState } from 'react'
 
+const defaultTeams = [[],[],[]]
+
 const useTeams = () => {
 
-    const getTeams = () => {
+    var getTeams = () => {
         const teamsString = localStorage.getItem('wavelengthTeams')
         if (teamsString && teamsString != 'undefined') {
             return JSON.parse(teamsString)       
         } else {
-            return null
+            // return null
+            localStorage.setItem('wavelengthTeams', JSON.stringify(defaultTeams))
+            return defaultTeams
         }
     }
 
     const [teams, setTeams] = useState(getTeams())
     
-    const saveTeams = (teams) => {
+    var saveTeams = (teams) => {
         localStorage.setItem('wavelengthTeams', JSON.stringify(teams))
         setTeams(teams)
     }
 
-    const clearTeams = () => {
+    var clearTeams = () => {
         localStorage.removeItem('wavelengthTeams')
         setTeams(null)
     }
