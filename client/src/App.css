@@ -77,7 +77,6 @@
   font-weight: bold;
   color: var(--lightText);
   text-shadow: var(--textShadow);
-  box-shadow: 0 0 10px 8px rgb(153, 153, 153) inset;
 }
 .mainButton:disabled {
   opacity: .5;
