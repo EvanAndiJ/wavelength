@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .blues {
   --redbg:#e35757;
   --redtxt: #882323;
@@ -97,8 +101,8 @@
   color: var(--mainBorderColor)
 }
 .topbar {
-  /* position: fixed; */
   display: flex;
+  justify-content: end;
   margin: 0 1em;
 }
 .topbarButton {

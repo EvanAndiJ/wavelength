@@ -345,8 +345,17 @@ export default function Room() {
     return (
         <div id='gameRoom'>
             <div className='topbar'>
+            { game.playing ? 
+                <div className='tooltip-bar m-auto'>  
+                    {game.phase === 1 ? `Team ${game.turn} psychic, draw a range and enter a clue`
+                    : game.phase === 2 ? `Team ${game.turn} move the slider to the location of the target`
+                    : game.phase === 3 ? `Team ${game.turn === 2 ? 1 : 2} click left or right for the side you think the target is on`
+                    : null
+                    }
+
+                </div> : null}
                 {/* <button onClick={()=>console.log(game)}>gamee</button> */}
-                <div>
+                <div >
                     <button className='topbarButton' onClick={toggleHowTo}>
                         <img src='/wavelength/question-circle-white.svg' alt='How To Play'/>
                     </button>
@@ -357,15 +366,7 @@ export default function Room() {
                 </div>
             </div>
 
-            { game.playing ? 
-                <div className='tooltip-bar'>  
-                    {game.phase === 1 ? `Team ${game.turn} psychic, draw a range and enter a clue`
-                    : game.phase === 2 ? `Team ${game.turn} move the slider to the location of the target`
-                    : game.phase === 3 ? `Team ${game.turn === 2 ? 1 : 2} click left or right for the side you think the target is on`
-                    : null
-                    }
-
-                </div> : null}
+            
             { err && <div> {err} </div>}
 
             <div id="gameBoard">

@@ -12,7 +12,7 @@ export default function App() {
   return (
     <ColorContext.Provider value={{theme, setTheme: toggleTheme}}>
     <div className={`App ${theme}`}>
-      <h1 className='mainTitle'>WAVELENGTH</h1>
+      <h1 className='mainTitle '>WAVELENGTH</h1>
       <Outlet/>
     </div>
     </ColorContext.Provider>
