@@ -43,6 +43,10 @@
   font-size: 50px;
   margin: 0;
 }
+.tooltip-bar {
+  font-family: sans-serif;
+  font-size: 1.25rem;
+}
 .startMenu {
   max-width: 250px;
   margin: 1em auto;
@@ -93,8 +97,8 @@
   color: var(--mainBorderColor)
 }
 .topbar {
+  /* position: fixed; */
   display: flex;
-  justify-content: space-between;
   margin: 0 1em;
 }
 .topbarButton {

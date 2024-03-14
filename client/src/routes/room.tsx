@@ -80,9 +80,7 @@ export default function Room() {
 
     useEffect(()=>{
         if (game) {
-            console.log(' game')
             if (Date.now() - game.dateUpdated > 360000) {
-                console.log('old')
                 resetGame()
                 setGame(defaultGame)
             }
@@ -177,8 +175,9 @@ export default function Room() {
         if (game.playing) {
             setGame({...game, playing: false})
         } else {
-            // setGame({...game, playing: true, score: [0,0]})
-            setGame({...game, playing: true})
+            setIsDraw(true)
+            setGame({...game, playing: true, score: [0,0]})
+            // setGame({...game, playing: true})
         }
         // if (!game.playing) {
         //     userChannel.publish('start', roomCode)
@@ -299,18 +298,26 @@ export default function Room() {
         if (newGame.turn === 2) { newGame.round++ }
         newGame.turn = newGame.turn === 1 ? 2 : 1;
         newGame.phase = 1       
-        setGame(newGame)
-
+        // setGame(newGame)
+        
         setScreen(false)
-        if (newGame.score[0] >= 10 || newGame.score[1] >= 10) {
-            setWinner(newGame.score[0] >= 10 ? 1 : 2)
+        // if (newGame.score[0] >= 10 || newGame.score[1] >= 10) {
+        if (newGame.score[0] >= 3 || newGame.score[1] >= 3) {
+            setWinner(newGame.score[0] >= 3 ? 1 : 2)
             setShowWin(true)
-            resetGame()
-            setGame({...defaultGame, scrore: newGame.score})
+            // resetGame()
+            newGame.turn = 1
+            newGame.round = 1
+            newGame.playing = false
+            newGame.clue = ''
+            newGame.range = []
+            newGame.discard = []
+            newGame.secondGuess = 1
         } else {
             // setGuessLock(data.teams[data.turn].includes(user.name) ? false : true)
             setIsDraw(true)
         }
+        setGame(newGame)
     }
     
     function nextTurn() {
@@ -343,13 +350,22 @@ export default function Room() {
                     <button className='topbarButton' onClick={toggleHowTo}>
                         <img src='/wavelength/question-circle-white.svg' alt='How To Play'/>
                     </button>
-                    <button className='topbarButton' onClick={game?.host === user?.name ? gameToggle : ()=>{}}>
+                    {/* <button className='topbarButton' onClick={game?.host === user?.name ? gameToggle : ()=>{}}>
                         <img src='/wavelength/power-button-white.svg'style={{opacity: game?.playing ? '1' : '.5'}}
                         alt={game?.playing ? 'End Game' : 'Start Game'}/>
-                    </button>    
+                    </button>     */}
                 </div>
             </div>
 
+            { game.playing ? 
+                <div className='tooltip-bar'>  
+                    {game.phase === 1 ? `Team ${game.turn} psychic, draw a range and enter a clue`
+                    : game.phase === 2 ? `Team ${game.turn} move the slider to the location of the target`
+                    : game.phase === 3 ? `Team ${game.turn === 2 ? 1 : 2} click left or right for the side you think the target is on`
+                    : null
+                    }
+
+                </div> : null}
             { err && <div> {err} </div>}
 
             <div id="gameBoard">
