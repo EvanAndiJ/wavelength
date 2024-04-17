@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/wavelength/static/css/main.dfd1a4c0.css",
-    "main.js": "/wavelength/static/js/main.4d3bcef7.js",
+    "main.css": "/wavelength/static/css/main.3f2e0d18.css",
+    "main.js": "/wavelength/static/js/main.4c7a1885.js",
     "index.html": "/wavelength/index.html",
-    "main.dfd1a4c0.css.map": "/wavelength/static/css/main.dfd1a4c0.css.map",
-    "main.4d3bcef7.js.map": "/wavelength/static/js/main.4d3bcef7.js.map"
+    "main.3f2e0d18.css.map": "/wavelength/static/css/main.3f2e0d18.css.map",
+    "main.4c7a1885.js.map": "/wavelength/static/js/main.4c7a1885.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfd1a4c0.css",
-    "static/js/main.4d3bcef7.js"
+    "static/css/main.3f2e0d18.css",
+    "static/js/main.4c7a1885.js"
   ]
 }
