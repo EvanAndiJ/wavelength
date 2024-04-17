@@ -2,9 +2,6 @@ import '../styles/playerArea.css'
 import { PlayerAreaProps, TeamBoxProps} from "../types";
 import React, { useContext } from 'react';
 
-import { useOutletContext } from 'react-router-dom';
-
-//@ts-ignore
 import { GameContext, UserContext } from '../context/Contexts.ts';
 
 
@@ -49,31 +46,8 @@ function TeamBox ({context, game, user, team, onJoin}: TeamBoxProps) {
           <div  id={`t${team}Score`} >
 
               <div className='score' >{score}</div> 
-              {/* {playing ? 
-                (<div style={{ display:'flex', flexDirection:'column'}}>
-                <div className='joinButton '></div>
-                </div>)
-
-               : (<div style={{ display:'flex', flexDirection:'column' }}>
-
-                  <button onClick={()=>onJoin(team,0)} disabled={userContext.team === team ? true : false}
-                      className={`join${team} joinButton gameButtons`}>join team</button>
-
-                  <button onClick={()=>onJoin(team,1)} disabled={psych ? true : false} 
-                      className={`join${team} joinButton gameButtons`}>join psych</button>
-
-               </div>)
-              } */}
               
           </div>
-          {/* <div className='teamList'> */}
-              {/* <div>Psychic: {gameContext.psych[team-1]} 
-                  { (!playing && userContext.psych && userContext.team === team) &&
-                    <button onClick={()=>onJoin(team,0)} className='cancelPsych'>x</button> }
-              </div> */}
-              {/* {users.map(user => user != psych ? <div key={user}>{user}</div> : null)} */}
-              {/* {users.map(user => <div key={user}>{user}</div>)} */}
-          {/* </div> */}
 
       </div>
   )

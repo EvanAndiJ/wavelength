@@ -5,3 +5,5 @@ node_modules/
 /client/ref
 .gitignore
 client/.gitignore
+/src/routes/Dash.tsx
+/server

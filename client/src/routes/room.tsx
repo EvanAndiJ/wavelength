@@ -1,6 +1,3 @@
-// TO MAKE SINGLE CLIENT WITH AS FEW CHANGES POSSIBLE:
-// Need to set user, teams, game
-
 import React, { useState, useEffect, } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import {configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
@@ -12,25 +9,13 @@ import useUser from '../hooks/useUser';
 import ranges from '../assets/ranges.js'
 
 
-//@ts-ignore
-import howToIcon from './img/question-circle-white.svg'
-//@ts-ignore
-import powerIcon from './img/power-button-white.svg'
-//@ts-ignore
 import { GameContext, UserContext, ColorContext } from '../context/Contexts.ts';
-//@ts-ignore
 import TargetArea from '../components/TargetArea.room.tsx';
-//@ts-ignore
 import GameArea from '../components/GameArea.room.tsx';
-//@ts-ignore
 import PlayerArea from '../components/PlayerArea.room.tsx';
-//@ts-ignore
 import DrawRanges from '../components/DrawRanges.room.tsx';
-//@ts-ignore
 import HowTo from '../components/HowTo.App.tsx';
-//@ts-ignore
 import Win from '../components/Win.Room.tsx';
-//@ts-ignore
 import Menu from '../components/Menu.App.tsx'
 
 const defaultGame = {
@@ -86,91 +71,7 @@ export default function Room() {
             }
         }
     },[])
-    // const authURL = process.env.NODE_ENV === "production" ? "https://wavelength-ej23-2dd5b345718d.herokuapp.com/auth" : '/auth'
-    // const realtime = configureAbly({ authUrl: authURL });
-
-    // realtime.connection.once('connected', async ()=> {
-    //     if (user.ably !== realtime.auth.clientId) {
-    //         const res = await http.addClientId(roomCode, user._id, realtime.auth.clientId)
-    //         setUser(res.user)
-    //     }
-    // })
-
-    // ABLY STUFF WONT BE USED
-    // const [gameRoom] = useChannel(`gameRoom${roomCode}`, 
-    //     (update) => {
-    //     const post = update.name
-    //     const data = update.data
-    //     if (post === 'gameState') {
-    //         if (!data.playing) {
-    //             setScreen(data.screen)
-    //         }
-    //         setGame(data)
-    //         if (data.phase > 2) { setGuessLock(true) }
-    //     }
-    //     if (post === 'gameStart') {
-    //         setGame(data);
-    //         setGuessLock(data.teams[2].includes(user.name) ? true : false)
-    //     }
-    //     if (post === 'gameStop') {
-    //         setGame(update.data)
-    //         setGuessLock(false)
-    //     }
-    //     if (post === 'nextTurn') {
-    //         setGame(update.data)
-            // setScreen(false)
-            // if (update.data.score[0] >= 10 || update.data.score[1] >= 10) {
-            //     setWinner(update.data.score[0] >= 10 ? 1 : 2)
-            //     setShowWin(true)
-            // } else {
-            //     setGuessLock(data.teams[data.turn].includes(user.name) ? false : true)
-            //     setIsDraw(true)
-            // }
-    //     }
-    //     if (post === 'teams') {
-    //         setTeams(update.data)
-    //         game.teams = update.data
-    //         setGame(game)
-    //     }
-    //     if (post === 'psychs') {
-    //         game.psych = update.data
-    //         setGame(game)
-    //     }
-    //     if (post === 'drawnRanges') {
-    //         setDrawn(update.data)
-    //     }
-    //     if (post === 'drawComplete') {
-    //         setGame(data)
-    //         setIsDraw(false)
-    //     }
-    //     if (post === 'closeScreen') {
-    //         setScreen(true)
-    //     }
-    //     if (post === 'err') {
-    //         setErr(data)
-    //     }
-    // })
-    // const [presence, updatePresence] = usePresence(`gameRoom${roomCode}`, {name: user.name, roomCode})
-    // const [userChannel] = useChannel(`userChannel-${user.ably ? user.ably : realtime.auth.clientId}`, 
-    //     (update) => {
-    //         const post = update.name
-    //         if (post === 'drawnRanges') {
-    //             if (update.data === 'done') {
-    //                 setDrawn([])
-    //             } else {
-    //                 setDrawn(update.data)
-    //             }
-    //         }
-    //         if (post === 'updateUser') {
-    //             setUser(update.data)
-    //         }
-    //         if (post === 'err') {
-    //             setErr(update.data)
-    //         }
-    //     }
-    // )
-
-    // Start and End the game 
+    
     function gameToggle () {
         if (game.playing) {
             setGame({...game, playing: false})
@@ -179,11 +80,6 @@ export default function Room() {
             setGame({...game, playing: true, score: [0,0]})
             // setGame({...game, playing: true})
         }
-        // if (!game.playing) {
-        //     userChannel.publish('start', roomCode)
-        // } else {
-        //     userChannel.publish('stop', roomCode)
-        // }
     }
     function changeTeams(team: number, psych:number) {
         user.team = team
@@ -237,9 +133,6 @@ export default function Room() {
 
         setScreen(false)
         setGuessLock(true)
-    }
-    function getTarget() { 
-        // userChannel.publish('target', roomCode)
     }
     function setClue(clue: string) {
         if (clue) {
@@ -319,28 +212,6 @@ export default function Room() {
         }
         setGame(newGame)
     }
-    
-    function nextTurn() {
-        // userChannel.publish(`nextTurn`, roomCode)
-    }
-    function ping() {
-        console.log('ping')
-        // userChannel.publish('showMe', 'showMe')
-    }
-    function unsub() {
-        console.log('unsub')
-        // userChannel.publish('unsub', 'unsub')
-    }
-    function reconnectUser() {
-        // gameRoom.publish('resub', {id: userChannel.name, roomCode})
-    }
-    function reconnectGame() {
-        // const res = http.newGameChannel(roomCode)
-    }
-    function reset() {
-        // userChannel.publish('gcClean', roomCode)
-    }
-
         
     return (
         <div id='gameRoom'>
@@ -354,15 +225,10 @@ export default function Room() {
                     }
 
                 </div> : null}
-                {/* <button onClick={()=>console.log(game)}>gamee</button> */}
-                <div >
+                <div className="absolute top-0 right-0">
                     <button className='topbarButton' onClick={toggleHowTo}>
                         <img src='/wavelength/question-circle-white.svg' alt='How To Play'/>
                     </button>
-                    {/* <button className='topbarButton' onClick={game?.host === user?.name ? gameToggle : ()=>{}}>
-                        <img src='/wavelength/power-button-white.svg'style={{opacity: game?.playing ? '1' : '.5'}}
-                        alt={game?.playing ? 'End Game' : 'Start Game'}/>
-                    </button>     */}
                 </div>
             </div>
 

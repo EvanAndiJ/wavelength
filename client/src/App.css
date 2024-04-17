@@ -109,6 +109,9 @@
   color: var(--lightText);
   border: none;
   background-color: transparent;   
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 .dropdown-toggle::after {
   display: none !important; 

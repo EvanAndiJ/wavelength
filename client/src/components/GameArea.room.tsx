@@ -1,6 +1,5 @@
 import '../styles/gameArea.css'
 import { GameAreaProps } from '../types';
-//@ts-ignore
 import { GameContext, UserContext } from '../context/Contexts.ts';
 import React, {useState, useContext} from 'react';
 
